@@ -21,7 +21,7 @@ public class IndexController {
 		
 	}
 	
-	@GetMapping(value="home")
+	@GetMapping(value="admin_home")
 	public String home(){
 		logger.info("开启index中的Home界面");
 		return "admin_home";
