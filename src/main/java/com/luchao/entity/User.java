@@ -1,5 +1,7 @@
 package com.luchao.entity;
 
+import java.util.List;
+
 public class User {
 	private Integer userId;
 	private String username;
@@ -7,13 +9,22 @@ public class User {
 	private String nickname;
 	private Integer leaderId;
 	private String avater;
+	public List<Menu> getMenus() {
+		return menus;
+	}
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+	private List<Menu> menus;
+	
 	public Integer getUserId() {
 		return userId;
 	}
+	
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", nickname=" + nickname
-				+ ", leaderId=" + leaderId + ", avater=" + avater + "]";
+				+ ", leaderId=" + leaderId + ", avater=" + avater + ", menus=" + menus + "]";
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
@@ -26,6 +37,9 @@ public class User {
 		this.nickname = nickname;
 		this.leaderId = leaderId;
 		this.avater = avater;
+	}
+	public User() {
+		super();
 	}
 	public String getUsername() {
 		return username;
