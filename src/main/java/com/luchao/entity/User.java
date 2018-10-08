@@ -1,31 +1,62 @@
 package com.luchao.entity;
 
 public class User {
-
-	private int id;
-	private String name;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
+	private Integer userId;
+	private String username;
+	private String password;
+	private String nickname;
+	private Integer leaderId;
+	private String avater;
+	public Integer getUserId() {
+		return userId;
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", nickname=" + nickname
+				+ ", leaderId=" + leaderId + ", avater=" + avater + "]";
 	}
-	public User() {
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public User(Integer userId, String username, String password, String nickname, Integer leaderId, String avater) {
 		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.nickname = nickname;
+		this.leaderId = leaderId;
+		this.avater = avater;
 	}
-	public User(int id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
+	public String getUsername() {
+		return username;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public Integer getLeaderId() {
+		return leaderId;
+	}
+	public void setLeaderId(Integer leaderId) {
+		this.leaderId = leaderId;
+	}
+	public String getAvater() {
+		return avater;
+	}
+	public void setAvater(String avater) {
+		this.avater = avater;
+	}
+	
+	
 }
