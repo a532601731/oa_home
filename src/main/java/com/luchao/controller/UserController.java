@@ -44,20 +44,14 @@ public class UserController {
 		logger.info("{}",user1);
 		if(user1==null){
 			logger.info("用户用户名或者密码错误导致登录失败");
-			//session.setAttribute("errors", 1);
+			
 			return "redirect:/user/login?errors=1";
 		}else{
-			logger.info("登录成功");			
-			//session.removeAttribute("errors");			
+			logger.info("登录成功");	
+			//登录成功，获取用户的菜单栏和权限栏
 			User nbuser=userservice.getMenusByUserId(user1.getUserId());
 			session.setAttribute("user", nbuser);
-			logger.info("nbuser:{}",nbuser);
-//			for(Menu u:nbuser.getMenus()){
-//				logger.info(u.getMenuName());
-//				
-//			}
-			
-			
+			logger.info("nbuser:{}",nbuser);						
 			return "redirect:/index";
 		}
 	}
