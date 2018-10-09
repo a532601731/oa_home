@@ -44,9 +44,9 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public User getMenusByUserId(Integer id) {
+	public User getMenusAndOperateByUserId(Integer id) {
 		// TODO Auto-generated method stub
-		return usermapper.getMenusByUserId(id);
+		return usermapper.getMenusAndOperateByUserId(id);
 	}
 
 }

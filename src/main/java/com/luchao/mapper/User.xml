@@ -21,6 +21,8 @@
 		<result property="leaderId" column="leader_id"/>
 		 <collection property="menus" ofType="com.luchao.entity.Menu" resultMap="com.luchao.dao.MenuMapper.MenuMap">
         </collection>
+        <collection property="operates" ofType="com.luchao.entity.Operate" resultMap="com.luchao.dao.OperateMapper.OperateMap">
+        </collection>
 	</resultMap>
   
 
@@ -56,22 +58,23 @@
     	select * from `user` where username = #{username} and password = #{password}
    	</select>
    	
-   	<select id="getMenusByUserId" 
+   	<select id="getMenusAndOperateByUserId" 
     	parameterType="int" 
     	resultMap="nbUser">
-    	SELECT
-    	user.*,
-		menu.*
-
+    	SELECT 
+		user.*,menu.*,operate.*
 		FROM
 		user 
 		INNER JOIN user_role ON user_role.user_id = user.user_id
 		INNER JOIN role ON user_role.role_id = role.role_id
 		INNER JOIN role_permission ON role_permission.role_id = role.role_id
 		INNER JOIN permission ON role_permission.permission_id = permission.permission_id
-		INNER JOIN permission_menu ON permission_menu.permission_id = permission.permission_id
-		INNER JOIN menu ON permission_menu.menu_id = menu.menu_id
-		where user.user_id=#{id}
+		left outer join permission_operate ON permission_operate.permission_id = permission.permission_id
+		left outer join operate ON permission_operate.operate_id = operate.operate_id
+		left outer join permission_menu ON permission_menu.permission_id = permission.permission_id
+		left outer join menu ON permission_menu.menu_id = menu.menu_id
+		where user.user_id =#{id}
+		order by operate.operate_id
    	</select>
    
     

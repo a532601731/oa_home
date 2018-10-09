@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应 dao 中的 接口 -->
+<mapper namespace="com.luchao.dao.OperateMapper">
+	<resultMap type="com.luchao.entity.Operate" id="OperateMap">
+		<id property="operateId" column="operate_id"/>
+		<result property="operateName" column="operate_name"/>
+		<result property="operateAction" column="operate_action"/>
+		<result property="operateUrl" column="operate_url"/>
+		<result property="pid" column="pid"/>		
+	</resultMap>
+  
+
+   
+   
+    
+    
+    
+    
+    
+
+</mapper>

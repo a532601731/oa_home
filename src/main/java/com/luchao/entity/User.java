@@ -9,6 +9,13 @@ public class User {
 	private String nickname;
 	private Integer leaderId;
 	private String avater;
+	private List<Operate> operates;
+	public List<Operate> getOperates() {
+		return operates;
+	}
+	public void setOperates(List<Operate> operates) {
+		this.operates = operates;
+	}
 	public List<Menu> getMenus() {
 		return menus;
 	}
@@ -21,10 +28,11 @@ public class User {
 		return userId;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", nickname=" + nickname
-				+ ", leaderId=" + leaderId + ", avater=" + avater + ", menus=" + menus + "]";
+				+ ", leaderId=" + leaderId + ", avater=" + avater + ", operates=" + operates + ", menus=" + menus + "]";
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;

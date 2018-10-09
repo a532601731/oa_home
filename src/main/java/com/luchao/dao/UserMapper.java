@@ -10,5 +10,5 @@ int add(User user);
 int delete(Integer id);
 int update(User user);
 User getUserByUsernameAndPassword(User user);
-User getMenusByUserId(Integer id);
+User getMenusAndOperateByUserId(Integer id);
 }
