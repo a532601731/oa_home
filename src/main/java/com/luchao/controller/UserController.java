@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +29,10 @@ public class UserController {
 	
 	//登录页面
 	@GetMapping(value="login")
-	public String login(){
+	public String login(Integer errors,ModelMap modelmap){
 		logger.info("用户进入登录页面");
-		
+		logger.info("错误代码:{}",errors);
+		modelmap.addAttribute("errors", errors);
 		return "user/login";
 	}
 	//进行登录操作
@@ -39,21 +41,21 @@ public class UserController {
 
 		logger.info("用户进行登录操作");
 		User user1=userservice.getUserByUsernameAndPassword(user);
+		logger.info("{}",user1);
 		if(user1==null){
-			logger.info("登录失败");
-			session.setAttribute("errors", 1);
+			logger.info("用户用户名或者密码错误导致登录失败");
+			//session.setAttribute("errors", 1);
 			return "redirect:/user/login?errors=1";
 		}else{
-			logger.info("登录成功");
-			
-			session.removeAttribute("errors");
-			
+			logger.info("登录成功");			
+			//session.removeAttribute("errors");			
 			User nbuser=userservice.getMenusByUserId(user1.getUserId());
 			session.setAttribute("user", nbuser);
-			for(Menu u:nbuser.getMenus()){
-				logger.info(u.getMenuName());
-				
-			}
+			logger.info("nbuser:{}",nbuser);
+//			for(Menu u:nbuser.getMenus()){
+//				logger.info(u.getMenuName());
+//				
+//			}
 			
 			
 			return "redirect:/index";
