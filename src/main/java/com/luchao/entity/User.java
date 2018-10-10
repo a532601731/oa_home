@@ -9,9 +9,19 @@ public class User {
 	private String nickname;
 	private Integer leaderId;
 	private String avater;
+	private User leader;
+	private List<User> subordinates;
+	
 	private List<Operate> operates;
+	
 	public List<Operate> getOperates() {
 		return operates;
+	}
+	public List<User> getSubordinates() {
+		return subordinates;
+	}
+	public void setSubordinates(List<User> subordinates) {
+		this.subordinates = subordinates;
 	}
 	public void setOperates(List<Operate> operates) {
 		this.operates = operates;
@@ -22,17 +32,32 @@ public class User {
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
 	}
+	
+	
+	
+
 	private List<Menu> menus;
 	
+	public User getLeader() {
+		return leader;
+	}
+	public void setLeader(User leader) {
+		this.leader = leader;
+	}
 	public Integer getUserId() {
 		return userId;
 	}
 	
 	
+	
+	
+
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", nickname=" + nickname
-				+ ", leaderId=" + leaderId + ", avater=" + avater + ", operates=" + operates + ", menus=" + menus + "]";
+				+ ", leaderId=" + leaderId + ", avater=" + avater + ", leader=" + leader + ", subordinates="
+				+ subordinates + ", operates=" + operates + ", menus=" + menus + "]";
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;

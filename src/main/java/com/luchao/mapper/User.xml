@@ -4,14 +4,16 @@
 
 <!-- 对应 dao 中的 接口 -->
 <mapper namespace="com.luchao.dao.UserMapper">
+	<!-- 简单表映射 -->
 	<resultMap type="com.luchao.entity.User" id="UserMap">
 		<id property="userId" column="user_id"/>
 		<result property="username" column="username"/>
 		<result property="password" column="password"/>
 		<result property="nickname" column="nickname"/>
 		<result property="avater" column="avater"/>
-		<result property="leaderId" column="leader_id"/>		
+		<result property="leaderId" column="leader_id"/>			
 	</resultMap>
+	<!-- 带有菜单和操作权限映射 -->
 	<resultMap type="com.luchao.entity.User" id="nbUser">
 		<id property="userId" column="user_id"/>
 		<result property="username" column="username"/>
@@ -24,13 +26,41 @@
         <collection property="operates" ofType="com.luchao.entity.Operate" resultMap="com.luchao.dao.OperateMapper.OperateMap">
         </collection>
 	</resultMap>
+	<!-- 带有上下属映射 -->
+	<resultMap type="com.luchao.entity.User" id="LeaderAndSubordnate">
+		<id property="userId" column="user_id"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="nickname" column="nickname"/>
+		<result property="avater" column="avater"/>
+		<result property="leaderId" column="leader_id"/>		
+		<association property="leader" javaType="com.luchao.entity.User" column="leader_id" select="getUserById"></association>	
+		 <collection property="subordinates" ofType="LeaderAndSubordnate" column="user_id" select="getUserByLeaderId"></collection>
+	</resultMap>
   
 
-    <select id="getUserById" parameterType="int" resultMap="UserMap">
+    <select id="getUserById" parameterType="int" resultMap="LeaderAndSubordnate">
+        select * from `user` where user_id = #{leaderId}
+    </select>
+    <select id="getUserByLeaderId" parameterType="int" resultMap="LeaderAndSubordnate">
+        select * from `user` where leader_id = #{userId}
+    </select>
+    <select id="getUserWithLeaderAndSubordinate" parameterType="int" resultMap="LeaderAndSubordnate">
         select * from `user` where user_id = #{userId}
     </select>
+    <select id="getAllUserWithLeaderAndSubordinate" resultMap="LeaderAndSubordnate">
+        select * from `user` 
+        
+       <!-- 根据页码查询数据 -->
+    </select>
+    <select id="getAllUserWithLeaderAndSubordinateByPage"  resultMap="LeaderAndSubordnate">
+        select * from `user` limit  #{page} , #{pagesize}
+    </select>
     
-    
+    <!-- 查询user总数 -->
+    <select id="getAllUserCount" resultType="int">
+        select count(*) from `user` 
+    </select>
     
     <!-- 增加一个 user -->
     <insert id="add" parameterType="com.luchao.entity.User" useGeneratedKeys="true" keyProperty="user_id" >
@@ -76,7 +106,11 @@
 		where user.user_id =#{id}
 		order by operate.operate_id
    	</select>
-   
+   	
+   	
+   <select id="getAllUsers" resultMap="UserMap">
+        select * from `user`
+    </select>
     
     
     

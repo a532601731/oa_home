@@ -1,6 +1,8 @@
 package com.luchao.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -59,7 +61,44 @@ public class UserController {
 	
 	@GetMapping("loginout")
 	public String loginout(HttpSession session){
+		logger.info("用户进行退出登录操作");
 		session.removeAttribute("user");
 		return "redirect:/user/login";
+	}
+	
+	
+	@GetMapping("show")
+	public String userShow(ModelMap modelmap,Integer page){
+		logger.info("用户进入员工管理界面");
+		
+		if(page==null){
+			page=1;
+		}
+		
+		//每页显示数量
+		
+		Integer pagesize=5;
+		//user总数
+		Integer allUserCount=userservice.getAllUserCount();
+		
+		//user总页数
+		Integer allUserPages=(int) Math.ceil(allUserCount*1.0/pagesize);
+		System.out.println("每页显示数量:"+pagesize+",user总数:"+allUserCount+",user总页数:"+allUserPages);
+		
+		List<User> users=userservice.getAllUserWithLeaderAndSubordinateByPage(page,pagesize);	
+//		for(User user:users){
+//			System.out.println(user.getNickname()+"的下属：");
+//			for(User user1:user.getSubordinates()){
+//				System.out.println(user1.getNickname());
+//			}
+//			System.out.println("----------------------------");
+//		}
+		modelmap.addAttribute("users",users);
+		
+		
+		
+		
+		
+		return "user/show";
 	}
 }
