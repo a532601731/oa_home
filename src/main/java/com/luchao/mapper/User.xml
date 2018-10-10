@@ -51,8 +51,9 @@
     <select id="getAllUserWithLeaderAndSubordinate" resultMap="LeaderAndSubordnate">
         select * from `user` 
         
-       <!-- 根据页码查询数据 -->
+      
     </select>
+     <!-- 根据页码查询数据 -->
     <select id="getAllUserWithLeaderAndSubordinateByPage"  resultMap="LeaderAndSubordnate">
         select * from `user` limit  #{page} , #{pagesize}
     </select>
@@ -67,9 +68,19 @@
     	insert into `user` values ( null , #{username} , #{password} , #{nickname} , #{leaderId} ,#{userHead}  )
     </insert>
     
+    <sql id="check0">set FOREIGN_KEY_CHECKS=0;</sql>
+    <sql id="check1">set FOREIGN_KEY_CHECKS=1;</sql>
     <!-- 删除 一个 user -->
     <delete id="delete" parameterType="int">
-    	delete from user where user_id = #{id}
+    
+    	<include refid="check0"></include>
+    
+    	
+		delete from user where user_id=#{id};
+		
+    	<include refid="check1"></include>
+    	
+   
     </delete>
     
     <update id="update" parameterType="com.luchao.entity.User">

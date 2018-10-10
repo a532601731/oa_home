@@ -27,6 +27,9 @@ public class UserServiceImpl implements IUserService{
 		return usermapper.add(user);
 	}
 
+	/**
+	 * 根据id删除用户
+	 */
 	@Override
 	public int delete(Integer id) {
 		// TODO Auto-generated method stub
@@ -97,6 +100,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	
+
 
 	
 
