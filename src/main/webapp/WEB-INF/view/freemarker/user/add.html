@@ -11,6 +11,15 @@
 		<script type="text/javascript" src="${rc.contextPath}/js/wow.js" ></script>
 		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
 		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".select2leader").select2()
+			})
+		
+		
+		</script>
 	</head>
 	<body>
 		
@@ -28,7 +37,7 @@
 						<input type="text" name="nickname" class="form-control" placeholder="昵称" />
 						
 						
-						<select class="form-control">
+						<select class="form-control select2leader">
 							<option value="option">---请选择上级---</option>
 							<#list allusers as user>
 								<option value="option">${user.nickname}</option>

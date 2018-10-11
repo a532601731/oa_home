@@ -64,8 +64,8 @@
     </select>
     
     <!-- 增加一个 user -->
-    <insert id="add" parameterType="com.luchao.entity.User" useGeneratedKeys="true" keyProperty="user_id" >
-    	insert into `user` values ( null , #{username} , #{password} , #{nickname} , #{leaderId} ,#{userHead}  )
+    <insert id="add" parameterType="com.luchao.entity.User" useGeneratedKeys="true" keyProperty="userId" >
+    	insert into `user` values ( null , #{username} , #{password} , #{nickname} , #{leaderId} ,#{avater}  )
     </insert>
     
     <sql id="check0">set FOREIGN_KEY_CHECKS=0;</sql>
