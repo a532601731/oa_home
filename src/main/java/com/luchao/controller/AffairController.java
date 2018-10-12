@@ -10,7 +10,7 @@ public class AffairController {
 
 	@GetMapping("show")
 	public String show(){
-		
+		System.out.println("用户进入了公文管理菜单");
 		return "affair/show";
 	}
 	

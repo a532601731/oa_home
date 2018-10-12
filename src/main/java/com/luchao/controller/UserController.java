@@ -99,7 +99,7 @@ public class UserController {
 
 	@GetMapping("delete/{id}")
 	public String deleteUserById(@PathVariable("id") Integer id) {
-
+		System.out.println("用户进行删除用户操作。");
 		System.out.println("用户要删除的用户id为" + id);
 		userservice.delete(id);
 		return "redirect:/user/show";
@@ -108,10 +108,13 @@ public class UserController {
 	// 批量删除的方法
 	@RequestMapping("delete/some")
 	public void batchDeletes(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("用户进行批量删除操作");
 		String items = request.getParameter("deleteIds");// System.out.println(items);
 		String[] strs = items.split(",");
 		for (int i = 0; i < strs.length; i++) {
+			
 			int id = Integer.parseInt(strs[i]);
+			System.out.println("用户删除鲁id为"+id+"的用户");
 			userservice.delete(id);
 
 		}

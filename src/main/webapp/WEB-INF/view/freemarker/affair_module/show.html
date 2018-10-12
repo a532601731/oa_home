@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>BWFUIFramework</title>
+<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${rc.contextPath}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/wow.js"></script>
+<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/global.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/Calendar3.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#addAffairModule").click(function(){
+			location.href = "${rc.contextPath}/affair_module/add";
+		})
+	})
+</script>
+</head>
+<body>
+
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			
+			&nbsp;&nbsp; 员工管理
+			<div class="btn-group btn-group-sm pull-right">
+				
+				
+				<button type="button" class="btn btn-default" id="addAffairModule">
+					<img src="${rc.contextPath}/img/plus.png" height="16px" />
+					&nbsp;&nbsp;添加公文模板
+				</button>
+			</div>
+		</div>
+
+		<div class="panel-body">
+
+			
+			
+			<!--
+                        	作者：titushan2010@163.com
+                        	时间：2017-09-25
+                        	描述：表格显示部分
+                        -->
+			<form action="" method="POST" role="form">
+				<table
+					class="table table-bordered table-condensed table-hover table-responsive cbx-group"
+					style="margin-top: 20px;">
+					<thead>
+						<tr>
+							<th class="td-checkbox"><input type="checkbox"
+								class="cbx-all" /></th>
+							<th>公文模板编号</th>
+							<th>公文模版名称</th>
+							<th>操作选项</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						
+						<tr>
+							<td align="center" class="td-checkbox"><input
+								type="checkbox" name="id" value="" /></td>
+							<td>1</td>
+							<td>请假公文模板</td>
+							
+							
+							<td width="120px"><span class="btn-group btn-group-xs">
+									<button type="button" class="btn btn-default">查看</button>
+									<button type="button" class="btn btn-default">编辑</button> <input
+									type="hidden" value="${user.userId}">
+									<button type="button" class="btn btn-danger btn-delete">删除</button>
+							</span></td>
+						</tr>
+						
+					</tbody>
+					<tfoot>
+
+					</tfoot>
+				</table>
+			</form>
+
+			
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+
+	<div style="height: 80px;"></div>
+</body>
+</html>
+
