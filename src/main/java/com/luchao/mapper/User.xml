@@ -53,6 +53,7 @@
         
       
     </select>
+    
      <!-- 根据页码查询数据 -->
     <select id="getAllUserWithLeaderAndSubordinateByPage"  resultMap="LeaderAndSubordnate">
         select * from `user` limit  #{page} , #{pagesize}
