@@ -14,29 +14,30 @@
 <script type="text/javascript" src="${rc.contextPath}/js/Calendar3.js"></script>
 <script type="text/javascript">
 	$(function() {
+		//单个删除
 		$(".btn-delete").click(function() {
-			
+
 			var id = $(this).prev().val();
-			
-			if (confirm("确定删除id为"+id+"的用户？")) {
+
+			if (confirm("确定删除id为" + id + "的用户？")) {
 				location.href = "${rc.contextPath}/user/delete/" + id
 			}
-	})
-		
-		$("#deletesome").click(function(){
+		})
+		//批量删除
+		$("#deletesome").click(function() {
 			var checkedNum = $("input[name='id']:checked").length;
 			if (checkedNum == 0) {
-				alert("请至少选择一项!"); 
+				alert("请至少选择一项!");
 				return false;
 			}
 			if (confirm("确定删除所选项目?")) {
 				var checkedList = new Array();
 				$("input[name='id']:checked").each(function() {
-					
+
 					checkedList.push($(this).val());
 				});
 				$.ajax({
-					type : "POST", 
+					type : "POST",
 					<!--批量删除的进入路径，-->
 					url : "${rc.contextPath}/user/delete/some",
 					data : {
@@ -53,16 +54,43 @@
 					}
 				});
 			}
-		
-		
+
+
 		})
-		$("#adduser").click(function(){
-			
+		//增加user操作
+		$("#adduser").click(function() {
+
 			location.href = "${rc.contextPath}/user/add"
-		
+
 		})
+		
+		//分页操作开始
+		$("#btnFirst").click(function() {
 
+			
 
+			
+				location.href = "${rc.contextPath}/user/show?page=1"
+			
+		})
+		
+		$("#btnLast").click(function(){
+			
+			location.href="${rc.contextPath}/user/show?page="+$("#allpages").val();
+		})
+		$("#btnPrev").click(function(){
+			
+			location.href="${rc.contextPath}/user/show?page="+(parseInt($("#currentPage").val())-1);
+		})
+		$("#btnNext").click(function(){
+			
+			location.href="${rc.contextPath}/user/show?page="+(parseInt($("#currentPage").val())+1);
+		})
+		
+		$(".pages").click(function(){
+		
+			location.href="${rc.contextPath}/user/show?page="+$(this).val();	
+		})
 	})
 </script>
 </head>
@@ -72,8 +100,8 @@
 
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<!--  <button type="button" class="btn btn-default btn-back btn-sm">
-				返 回</button>-->
+			<button type="button" class="btn btn-default btn-back btn-sm"
+				onclick="history.back()">返 回</button>
 			&nbsp;&nbsp; 员工管理
 			<div class="btn-group btn-group-sm pull-right">
 				<button type="button" class="btn btn-default btn-where">
@@ -97,62 +125,25 @@
                         	时间：2017-09-25
                         	描述：搜索条件
                         -->
-			<form action="" method="POST" role="form" name="form1" id="form1">
+			<form action="${rc.contextPath}/user/show" method="GET" role="form"
+				name="form1" id="form1">
 				<div class="row row-where">
 
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-						<input type="text" name="" class="form-control" placeholder="文本搜索" />
+						<input type="text" name="nickname" class="form-control"
+							placeholder="请输入用户的昵称" />
 					</div>
 
-					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default"><input type="radio"
-								name="" value="" />单选一</label> <label class="btn btn-default"><input
-								type="radio" name="" value="" />单选二</label> <label
-								class="btn btn-default"><input type="radio" name=""
-								value="" />单选三</label> <label class="btn btn-default"><input
-								type="radio" name="" value="" />单选四</label>
-						</div>
-					</div>
 
-					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default"><input type="checkbox"
-								name="" value="" />复选一</label> <label class="btn btn-default"><input
-								type="checkbox" name="" value="" />复选二</label> <label
-								class="btn btn-default"><input type="checkbox" name=""
-								value="" />复选三</label> <label class="btn btn-default"><input
-								type="checkbox" name="" value="" />复选四</label>
-						</div>
-					</div>
 
-					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-						<select name="" class="form-control">
-							<option value="">下拉选项一</option>
-							<option value="">下拉选项二</option>
-							<option value="">下拉选项三</option>
-							<option value="">下拉选项四</option>
-							<option value="">下拉选项五</option>
-							<option value="">下拉选项六</option>
-						</select>
-					</div>
 
-					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-						<div class="input-group">
-							<input type="text" class="form-control" name="txt2"
-								readonly="readonly" onclick="new Calendar().show(this);" />
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-default"
-									onclick="new Calendar().show(this.form.txt2);">
-									<img src="${rc.contextPath}/img/54323.png" height="18px" />
-								</button>
-							</div>
-						</div>
-					</div>
+
+
+
 
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 						<button type="submit" class="btn btn-darkgreen form-control">
-							开始搜索</button>
+							搜索用户</button>
 					</div>
 				</div>
 
@@ -162,7 +153,7 @@
                         	时间：2017-09-25
                         	描述：表格显示部分
                         -->
-			<form action="" method="POST" role="form">
+			<form action="" method="GET" role="form">
 				<table
 					class="table table-bordered table-condensed table-hover table-responsive cbx-group"
 					style="margin-top: 20px;">
@@ -207,49 +198,52 @@
 					</tfoot>
 				</table>
 			</form>
-
+			
 			<div class="row">
 				<div class="col-lg-8 col-md-7 col-sm-7 col-xs-5">
 					<div class="btn-group btn-group-sm">
-						<button type="button" class="btn btn-darkgreen">
+
+						<button type="button" class="btn btn-darkgreen firstpage"
+							id="btnFirst">
 							<span class="hidden-xs hidden-sm"> 首 页 </span> <span
 								class="hidden-lg hidden-md"> |&lt; </span>
 						</button>
-						<button type="button" class="btn btn-darkgreen">
+						<#if pagebean.hasFirst=0>
+						<button type="button" class="btn btn-darkgreen firstpage"
+							id="btnPrev">
 							<span class="hidden-xs hidden-sm"> 上一页 </span> <span
 								class="hidden-lg hidden-md"> &lt;&lt; </span>
 						</button>
-						<button type="button" class="btn btn-default hidden-xs hidden-sm"
-							disabled="disabled">.…</button>
+						</#if>
+						<input type="hidden" value="${pagebean.allpages}" id="allpages">
+						<#list pages as pages1> <#if pages1=pagebean.pageNow>
+						<button type="button" class="btn btn-primary pages" value="${pages1}" id="currentPage">
+							${pages1}</button>
+						</#if>
+						 <#if pages1!=pagebean.pageNow>
+						<button type="button" class="btn btn-default pages" value="${pages1}">
+							${pages1}</button>
+						</#if> 
+						</#list>
 
-						<button type="button"
-							class="btn btn-default hidden-xs hidden-sm hidden-md">3
-						</button>
 
-						<button type="button" class="btn btn-default hidden-xs hidden-sm"
-							disabled="disabled">.…</button>
-						<button type="button" class="btn btn-darkgreen">
+						<#if pagebean.hasLast=0>
+						<button type="button" class="btn btn-darkgreen lastpage" id="btnNext">
 							<span class="hidden-xs hidden-sm"> 下一页 </span> <span
 								class="hidden-lg hidden-md"> &gt;&gt; </span>
 						</button>
-						<button type="button" class="btn btn-darkgreen">
+						</#if>
+						<button type="button" class="btn btn-darkgreen lastpage" id="btnLast">
 							<span class="hidden-xs hidden-sm"> 末 页 </span> <span
 								class="hidden-lg hidden-md"> &gt;| </span>
 						</button>
+
 					</div>
 
 				</div>
-				<div class="col-lg-4 col-md-5 col-sm-5 col-xs-7">
-					<div class="input-group input-group-sm">
-						<input type="text" class="form-control" placeholder="7" /> <span
-							class="input-group-addon"> / 60 页 </span>
-						<div class="input-group-btn">
-							<button type="button" class="btn btn-darkgreen">Go</button>
-						</div>
-					</div>
-				</div>
+
 			</div>
-
+			
 
 
 

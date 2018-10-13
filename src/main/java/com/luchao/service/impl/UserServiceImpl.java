@@ -99,6 +99,22 @@ public class UserServiceImpl implements IUserService{
 		return usermapper.getAllUserCount();
 	}
 
+	@Override
+	public List<User> searchUserByNickname(String nickname) {
+		// TODO Auto-generated method stub
+		return usermapper.searchUserByNickname(nickname);
+	}
+
+	@Override
+	public List<User> getAllUserWithLeaderAndSubordinateByPageAndNickname(Integer page, Integer pagesize,
+			String nickname) {
+		
+		page=(page-1)*pagesize;
+		return usermapper.getAllUserWithLeaderAndSubordinateByPageAndNickname(page,pagesize,nickname);
+	}
+
+	
+
 	
 
 

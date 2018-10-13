@@ -1,5 +1,6 @@
 package com.luchao.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.luchao.entity.Menu;
+import com.luchao.entity.Page;
 import com.luchao.entity.User;
 import com.luchao.service.IUserService;
 
@@ -69,31 +71,44 @@ public class UserController {
 	}
 
 	@GetMapping("show")
-	public String userShow(ModelMap modelmap, Integer page) {
+	public String userShow(ModelMap modelmap, Integer page,String nickname) {
 
 		logger.info("用户进入员工管理界面");
 
 		if (page == null) {
 			page = 1;
 		}
-
+		
 		// 每页显示数量
 
 		Integer pagesize = 5;
 		// user总数
 		Integer allUserCount = userservice.getAllUserCount();
+		
+		
+		Page pagebean=new Page(page, allUserCount, pagesize);
 		// user总页数
-		Integer allUserPages = (int) Math.ceil(allUserCount * 1.0 / pagesize);
-		System.out.println("每页显示数量:" + pagesize + ",user总数:" + allUserCount + ",user总页数:" + allUserPages);
-		List<User> users = userservice.getAllUserWithLeaderAndSubordinateByPage(page, pagesize);
-		// for(User user:users){
-		// System.out.println(user.getNickname()+"的下属：");
-		// for(User user1:user.getSubordinates()){
-		// System.out.println(user1.getNickname());
-		// }
-		// System.out.println("----------------------------");
-		// }
+				
+		System.out.println("每页显示数量:" + pagebean.getPageSize() + ",user总数:" + pagebean.getAllCount() + ",user总页数:" + pagebean.getAllpages());
+		System.out.println("用户当前在第"+pagebean.getPageNow()+"页");
+		System.out.println("有上一页？"+pagebean.getHasFirst());
+		System.out.println("有下一页？"+pagebean.getHasLast());
+		List<User> users=null;
+		if(nickname==null){
+			users = userservice.getAllUserWithLeaderAndSubordinateByPage(page, pagesize);
+		}else{
+			System.out.println("用户使用搜索功能，搜索昵称为："+nickname);
+			users = userservice.getAllUserWithLeaderAndSubordinateByPageAndNickname(page, pagesize,nickname);
+		}
+		
+		List<Integer> pages=new ArrayList<Integer>();
+		for(int i=1;i<=pagebean.getAllpages();i++){
+			pages.add(i);
+			
+		}
+		modelmap.addAttribute("pages",pages);
 		modelmap.addAttribute("users", users);
+		modelmap.addAttribute("pagebean",pagebean);
 		return "user/show";
 	}
 

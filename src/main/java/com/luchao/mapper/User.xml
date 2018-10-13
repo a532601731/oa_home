@@ -123,8 +123,12 @@
         select * from `user`
     </select>
     
-    
-    
+    <select id="searchUserByNickname" parameterType="String">
+    	select * from user where nickname like "%"#{nickname}"%"
+    </select>
+    <select id="getAllUserWithLeaderAndSubordinateByPageAndNickname"  resultMap="LeaderAndSubordnate">
+        select * from `user` where nickname like "%"#{nickname}"%" limit  #{page} , #{pagesize}
+    </select>
     
     
 
