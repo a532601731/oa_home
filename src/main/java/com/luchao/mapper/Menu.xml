@@ -10,14 +10,6 @@
 		<result property="menuUrl" column="menu_url"/>
 		<result property="pid" column="pid"/>		
 	</resultMap>
-  
-
-   
-   
-    
-    
-    
-    
-    
-
+	
+	
 </mapper>

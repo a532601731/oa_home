@@ -4,21 +4,42 @@
 
 <!-- 对应 dao 中的 接口 -->
 <mapper namespace="com.luchao.dao.DepartmentMapper">
+	
+	
 	<resultMap type="com.luchao.entity.Department" id="DepartmentMap">
 		<id property="departmentId" column="department_id"/>
 		<result property="departmentName" column="department_name"/>
 		<result property="pid" column="pid"/>
-		<result property="userId" column="user_id"/>		
+		<result property="userId" column="user_id"/>			
 	</resultMap>
-  
-  	
-
-  
-   
-    
-    
-    
-    
-    
-
+	<resultMap type="com.luchao.entity.Department" id="nbDepartmentMap">
+		<id property="departmentId" column="department_id"/>
+		<result property="departmentName" column="department_name"/>
+		<result property="pid" column="pid"/>
+		<result property="userId" column="departmentleader_id"/>	
+		<collection property="users" ofType="com.luchao.entity.User" >
+			<id property="userId" column="user_id"/>
+			<result property="username" column="username"/>
+			<result property="password" column="password"/>
+			<result property="nickname" column="nickname"/>
+			<result property="avater" column="avater"/>
+			<result property="leaderId" column="leader_id"/>
+        </collection>
+	</resultMap>
+	<select id="getAllDepartment" resultMap="DepartmentMap" >
+		select * from department
+	</select>
+	<select id="getAllDepartmentAndUsers" resultMap="nbDepartmentMap">
+		SELECT
+		department.department_id,department.department_name,department.pid,department.user_id as departmentleader_id,
+		user.*
+		
+		FROM
+		department
+		INNER JOIN role ON department.department_id = role.department_id
+		INNER JOIN user_role ON user_role.role_id = role.role_id
+		INNER JOIN user ON  user_role.user_id = user.user_id
+	</select>
+	
+	
 </mapper>

@@ -98,7 +98,19 @@
 						</div>
 						<div class="panel-body panel-step-body page3" >
 							<!-- 1，展示所有部门，2根据部门列出所有员工 3展示审批流程 -->
-							
+							<#list departments as department>
+								<div class="col-md-2">
+								${department.departmentName}  :
+								</div>
+								<div class="col-md-10">
+								<#list department.users as department2>
+									<div class="btn-group btn-group-sm">
+									    <button type="button" class="btn btn-default">${department2.nickname}  </button>									    
+									</div>									
+								</#list>
+								</div>
+								<br><hr>
+							</#list>
 						</div>
 						
 						
