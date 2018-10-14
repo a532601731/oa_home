@@ -42,6 +42,7 @@
     <select id="getUserById" parameterType="int" resultMap="LeaderAndSubordnate">
         select * from `user` where user_id = #{leaderId}
     </select>
+    
     <select id="getUserByLeaderId" parameterType="int" resultMap="LeaderAndSubordnate">
         select * from `user` where leader_id = #{userId}
     </select>

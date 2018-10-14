@@ -48,12 +48,15 @@
 			&nbsp;&nbsp;添加用户
 		</div>
 		
-		<div class="valierrors">
+		<div id="errors">
 			错误列表：
-			<#list valierrors as error>
-				<div class="error">${error.defaultMessage}</div>
-			</#list>
-		</div>
+			<div class="error" style="color: red;border: 1px solid red;">${usernameerror}</div>
+	  	 	<#list valierrors as error>
+	  	 		<div class="error" style="color: red;border: 1px solid red;">${error.defaultMessage}</div>
+	  	 		
+	  	 	</#list>
+	  	 	
+  	 	</div>
 		
 		<div class="panel-body">
 			<form action="${rc.contextPath}/user/doadd" method="POST" role="form"

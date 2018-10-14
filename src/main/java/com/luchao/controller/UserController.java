@@ -2,7 +2,6 @@ package com.luchao.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,16 +15,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
-import com.luchao.entity.Menu;
 import com.luchao.entity.Page;
 import com.luchao.entity.User;
 import com.luchao.service.IUserService;
-import com.luchao.util.md5;
+
 
 
 @Controller
@@ -147,16 +147,31 @@ public class UserController {
 	}
 	
 	@RequestMapping("doadd")
-	public String doadd(@Valid User user,BindingResult b,ModelMap modelmap ){
+	public String doadd(@Valid User user,BindingResult b,HttpServletRequest req,RedirectAttributesModelMap rmm){
 		System.out.println("用户进入doadd页面");
-		System.out.println(user);
-		if(b.hasErrors()){
-			System.out.println("用户错误总数："+b.getFieldErrorCount());
 		
-			modelmap.addAttribute("valierrors",b.getAllErrors());
+		if(b.hasErrors()){
+			List<ObjectError> errors =  b.getAllErrors();
+			for( ObjectError error : errors ) {
+				System.out.println( error.getCode() + "|" + error.getDefaultMessage() );
+			}
+			//req.getSession().setAttribute("valierrors", b.getAllErrors());
+			rmm.addFlashAttribute("valierrors",b.getAllErrors());
 			return "redirect:/user/add";
 		}
-		return "redirect:/user/show";
-		
+		else{
+			//用户输入没错，查询该username在数据库里是否存在
+			User user1=userservice.getUserByUsernameAndPassword(user);
+			if(user1==null){
+				userservice.add(user);
+				return "redirect:/user/show?page=1&addsuccess";
+			}else{
+				//用户名重复
+				rmm.addFlashAttribute("usernameerror","用户名重复!!");
+				return "redirect:/user/add";
+			}
+			
+			
+		}
 	}
 }

@@ -14,6 +14,7 @@
 <script type="text/javascript" src="${rc.contextPath}/js/Calendar3.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
 		//单个删除
 		$(".btn-delete").click(function() {
 
@@ -54,7 +55,7 @@
 					}
 				});
 			}
-
+			
 
 		})
 		//增加user操作
@@ -92,7 +93,9 @@
 			location.href="${rc.contextPath}/user/show?page="+$(this).val();	
 		})
 		
-		
+		if(location.href.indexOf("addsuccess")>=0){
+			alert("添加用户成功！")
+		}
 		
 		
 	})
