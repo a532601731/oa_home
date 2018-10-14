@@ -2,10 +2,24 @@ package com.luchao.entity;
 
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
+
+
+
+
+
 public class User {
 	private Integer userId;
+	
+	@NotEmpty(message="用户名不能为空")
 	private String username;
+	
+	
+	@NotEmpty(message="密码不能为空")	
 	private String password;
+	
+	@NotEmpty(message="昵称不能为空")
 	private String nickname;
 	private Integer leaderId;
 	private String avater;

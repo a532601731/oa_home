@@ -2,10 +2,12 @@ package com.luchao.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +25,7 @@ import com.luchao.entity.Menu;
 import com.luchao.entity.Page;
 import com.luchao.entity.User;
 import com.luchao.service.IUserService;
+import com.luchao.util.md5;
 
 
 @Controller
@@ -143,9 +147,16 @@ public class UserController {
 	}
 	
 	@RequestMapping("doadd")
-	public String doadd(){
+	public String doadd(@Valid User user,BindingResult b,ModelMap modelmap ){
 		System.out.println("用户进入doadd页面");
+		System.out.println(user);
+		if(b.hasErrors()){
+			System.out.println("用户错误总数："+b.getFieldErrorCount());
 		
-		return "redirect:/user/add";
+			modelmap.addAttribute("valierrors",b.getAllErrors());
+			return "redirect:/user/add";
+		}
+		return "redirect:/user/show";
+		
 	}
 }

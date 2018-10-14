@@ -24,8 +24,9 @@ html {
 </style>
 <script type="text/javascript">
 	$(function(){
-		if(location.href.indexOf("errors")){
+		if(location.href.indexOf("errors")>=0){
 			var errors=${errors};
+			console.log(errors);
 			var errmessage='';
 			if(errors==1){
 				errmessage='用户名或者密码错误'
