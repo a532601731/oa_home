@@ -19,4 +19,5 @@ public interface IUserService {
 	List<User> getAllUserWithLeaderAndSubordinateByPage(Integer page,Integer pagesize);
 	List<User> searchUserByNickname(String nickname);
 	List<User> getAllUserWithLeaderAndSubordinateByPageAndNickname(Integer page,Integer pagesize,String nickname);
+	User getFinalUserById(Integer id);
 }

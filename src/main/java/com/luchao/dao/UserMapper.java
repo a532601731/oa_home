@@ -23,7 +23,8 @@ User getUserWithLeaderAndSubordinate(Integer id);
 List<User> getAllUserWithLeaderAndSubordinate();
 List<User> getAllUserWithLeaderAndSubordinateByPage(@Param("page")Integer page,@Param("pagesize")Integer pagesize);
 Integer getAllUserCount();
-
+//最终的user,包含上下属，菜单，权限
+User getFinalUserById(Integer id);
 List<User> searchUserByNickname(String nickname);
 List<User> getAllUserWithLeaderAndSubordinateByPageAndNickname(@Param("page")Integer page, @Param("pagesize")Integer pagesize, @Param("nickname")String nickname);
 }

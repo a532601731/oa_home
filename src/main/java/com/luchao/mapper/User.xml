@@ -37,7 +37,10 @@
 		<association property="leader" javaType="com.luchao.entity.User" column="leader_id" select="getUserById"></association>	
 		 <collection property="subordinates" ofType="LeaderAndSubordnate" column="user_id" select="getUserByLeaderId"></collection>
 	</resultMap>
-  
+  	
+  	
+	
+	
 
     <select id="getUserById" parameterType="int" resultMap="LeaderAndSubordnate">
         select * from `user` where user_id = #{leaderId}
@@ -58,6 +61,47 @@
      <!-- 根据页码查询数据 -->
     <select id="getAllUserWithLeaderAndSubordinateByPage"  resultMap="LeaderAndSubordnate">
         select * from `user` limit  #{page} , #{pagesize}
+    </select>
+    
+    
+    <resultMap type="com.luchao.entity.User" id="final">
+		<id property="userId" column="user_id"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="nickname" column="nickname"/>
+		<result property="avater" column="avater"/>
+		<result property="leaderId" column="leader_id"/>		
+		<association property="leader" javaType="com.luchao.entity.User" column="leader_id" select="getUserById1"></association>	
+		 <collection property="subordinates" ofType="LeaderAndSubordnate" column="user_id" select="getUserByLeaderId1"></collection>
+		  <collection property="menus" ofType="com.luchao.entity.Menu" resultMap="com.luchao.dao.MenuMapper.MenuMap">
+        </collection>
+        <collection property="operates" ofType="com.luchao.entity.Operate" resultMap="com.luchao.dao.OperateMapper.OperateMap">
+        </collection>
+	</resultMap>
+	
+	
+	<select id="getUserById1" parameterType="int" resultMap="final">
+        select * from `user` where user_id = #{leaderId}
+    </select>
+    
+    <select id="getUserByLeaderId1" parameterType="int" resultMap="final">
+        select * from `user` where leader_id = #{userId}
+    </select>
+    <select id="getFinalUserById" parameterType="int" resultMap="final">
+    	SELECT 
+		user.*,menu.*,operate.*
+		FROM
+		user 
+		INNER JOIN user_role ON user_role.user_id = user.user_id
+		INNER JOIN role ON user_role.role_id = role.role_id
+		INNER JOIN role_permission ON role_permission.role_id = role.role_id
+		INNER JOIN permission ON role_permission.permission_id = permission.permission_id
+		left outer join permission_operate ON permission_operate.permission_id = permission.permission_id
+		left outer join operate ON permission_operate.operate_id = operate.operate_id
+		left outer join permission_menu ON permission_menu.permission_id = permission.permission_id
+		left outer join menu ON permission_menu.menu_id = menu.menu_id
+		where user.user_id =#{id}
+		order by operate.operate_id
     </select>
     
     <!-- 查询user总数 -->

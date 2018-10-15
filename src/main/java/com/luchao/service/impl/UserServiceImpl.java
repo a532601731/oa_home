@@ -113,6 +113,12 @@ public class UserServiceImpl implements IUserService{
 		return usermapper.getAllUserWithLeaderAndSubordinateByPageAndNickname(page,pagesize,nickname);
 	}
 
+	@Override
+	public User getFinalUserById(Integer id) {
+		// TODO Auto-generated method stub
+		return usermapper.getFinalUserById(id);
+	}
+
 	
 
 	
