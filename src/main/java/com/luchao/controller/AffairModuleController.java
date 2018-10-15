@@ -111,17 +111,28 @@ public class AffairModuleController {
 		return "redirect:/affair_module/show";
 	}
 	
-	@GetMapping("update")
-	public String update(){
+	@GetMapping("update/{id}")
+	public String update(@PathVariable("id") Integer id,ModelMap modelmap){
+		System.out.println("用户进入模板编辑界面");
+		System.out.println("用户正在编辑模板编号为"+id+"的模板");
+		AffairModule a=affairmoduleservice.getAffairModuleById(id);
+		List<AffairModuleModuleOptions> ls1=affairoptions.getByAffairModuleId(id);
 		
 		return "affair_module/update";
+	}
+	@PostMapping("doupdate/{id}")
+	public String doEdit(@PathVariable("id") Integer id){
+		//实现模板保存
+		return null;
 	}
 	
 	@GetMapping("delete/{id}")
 	public String deleteUserById(@PathVariable("id") Integer id) {
 		System.out.println("用户进行删除模板操作。");
 		System.out.println("用户要删除的模板id为" + id);
+		
 		affairmoduleservice.delete(id);
+		
 		return "redirect:/affair_module/show?success=1";
 	}
 	

@@ -16,5 +16,7 @@
 	<insert id="add" parameterType="com.luchao.entity.AffairModuleModuleOptions" useGeneratedKeys="true" keyProperty="affairModuleModuleOptionsId">
 		insert into affairmodule_moduleoptions values(null,#{affairModuleId},#{moduleOptionsId},#{order},#{moduleOptionsName},#{moduleOptionsData})
 	</insert>
-	
+	<select id="getByAffairModuleId" parameterType="int" resultMap="AffairModuleModuleOptionsMap">
+		select * from  affairmodule_moduleoptions where affairmodule_id = #{id}
+	</select>
 </mapper>

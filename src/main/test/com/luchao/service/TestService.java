@@ -10,6 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.luchao.entity.AffairModule;
+import com.luchao.entity.AffairModuleModuleOptions;
+import com.luchao.entity.ModuleApproval;
 import com.luchao.entity.User;
 
 @RunWith(SpringRunner.class)
@@ -24,6 +26,12 @@ public class TestService {
 	
 	@Autowired
 	IAffairModuleService aff;
+	
+	@Autowired
+	IAffairModuleModuleOptionsService ammo;
+	
+	@Autowired
+	IModuleApprovalService mas;
 //	@Test
 //	public void test1(){
 //		
@@ -56,10 +64,26 @@ public class TestService {
 //			System.out.println(a);
 //		}
 //	}
+//	@Test
+//	public void test4(){
+//		AffairModule a=aff.getAffairModuleById(5);
+//		System.out.println(a);
+//		
+//		
+//	}
 	@Test
-	public void test4(){
+	public void test6(){
 		
-		aff.delete(100);
-		
+		List<AffairModuleModuleOptions> a=ammo.getByAffairModuleId(6);
+		for(AffairModuleModuleOptions b:a){
+			System.out.println(b);
+		}
+	}
+	@Test
+	public void test5(){
+		List<ModuleApproval> a=mas.getById(6);
+		for(ModuleApproval b:a){
+			System.out.println(b);
+		}
 	}
 }

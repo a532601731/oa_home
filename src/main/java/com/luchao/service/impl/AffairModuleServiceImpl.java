@@ -34,6 +34,13 @@ public class AffairModuleServiceImpl implements IAffairModuleService{
 		// TODO Auto-generated method stub
 		return affairmodulemapper.delete(id);
 	}
+
+
+	@Override
+	public AffairModule getAffairModuleById(Integer id) {
+		// TODO Auto-generated method stub
+		return affairmodulemapper.getAffairModuleById(id);
+	}
 	
 	
 	

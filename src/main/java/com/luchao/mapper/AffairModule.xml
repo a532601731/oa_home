@@ -25,4 +25,7 @@
 		delete from affairmodule where affairmodule_id=#{id};		
     	<include refid="check1"></include>    	   
     </delete>
+    <select id="getAffairModuleById" resultMap="AffairModuleMap" parameterType="int">
+    	select * from affairmodule where affairmodule_id= #{id}
+    </select>
 </mapper>

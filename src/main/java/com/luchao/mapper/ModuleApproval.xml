@@ -16,5 +16,8 @@
 	<insert id="add" parameterType="com.luchao.entity.ModuleApproval" useGeneratedKeys="true" keyProperty="approvalId">
 			insert into moduleapproval values(null,#{affairModuleId},#{approvalOrder},#{approvalUserId},0)
 	</insert>
-	
+	<select id="getById" resultMap="ModuleApprovalMap" parameterType="int">
+		
+		select * from moduleapproval where affairmodule_id = #{id}
+	</select>
 </mapper>
