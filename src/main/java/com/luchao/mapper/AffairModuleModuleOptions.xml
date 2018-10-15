@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应 dao 中的 接口 -->
+<mapper namespace="com.luchao.dao.AffairModuleModuleOptionsMapper">
+	<resultMap type="com.luchao.entity.AffairModuleModuleOptions" id="AffairModuleModuleOptionsMap">
+		<id property="affairModuleModuleOptionsId" column="affairmodule_moduleoptions_id"/>
+		<result property="affairModuleId" column="affairmodule_id"/>
+		<result property="moduleOptionsId" column="moduleoptions_id"/>
+		<result property="order" column="order"/>
+		<result property="moduleOptionsName" column="moduleoptions_name"/>
+		<result property="moduleOptionsData" column="moduleoptions_data"/>
+	</resultMap>
+	
+	<insert id="add" parameterType="com.luchao.entity.AffairModuleModuleOptions" useGeneratedKeys="true" keyProperty="affairModuleModuleOptionsId">
+		insert into affairmodule_moduleoptions values(null,#{affairModuleId},#{moduleOptionsId},#{order},#{moduleOptionsName},#{moduleOptionsData})
+	</insert>
+	
+</mapper>

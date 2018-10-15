@@ -20,9 +20,7 @@ public void setAffairModuleId(Integer affairModuleId) {
 public Integer getModuleOptionsId() {
 	return moduleOptionsId;
 }
-public AffairModuleModuleOptions() {
-	super();
-}
+
 @Override
 public String toString() {
 	return "AffairModuleModuleOptions [affairModuleModuleOptionsId=" + affairModuleModuleOptionsId + ", affairModuleId="
@@ -34,6 +32,9 @@ public void setModuleOptionsId(Integer moduleOptionsId) {
 }
 public Integer getOrder() {
 	return order;
+}
+public AffairModuleModuleOptions() {
+	super();
 }
 public void setOrder(Integer order) {
 	this.order = order;
