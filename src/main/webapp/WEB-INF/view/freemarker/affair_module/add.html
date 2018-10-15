@@ -82,20 +82,7 @@
 			chaindata = chaindata + $(this).val() + ",";
 			$("#chaindata").val(chaindata);
 		})
-		/*
-		错误！
-		$('.remove-user').click(function(){
-			var val = $(this).next().next().val()
-	
-				$("input[name='" + val + "']").attr("disabled", false);
-				$(this).parent().remove();
-	
-				// 数据部分
-				// 遍历ui部分
-				var chaindata = $("#chaindata").val();			
-				chaindata = chaindata.replace(val + ",", "")
-				$("#chaindata").val(chaindata);
-		})*/
+		
 			
 		$('#chain').on('click', '.remove-user', function() {
 			var val = $(this).next().next().val()
@@ -127,6 +114,7 @@
 
 			<form action="${rc.contextPath}/affair_module/doadd" method="post"
 				role="form" class="form-horizontal">
+				<input name="affairModuleUserId" value=${user.userId} type="hidden">
 				<div class="panel panel-default panel-step">
 					<div class="panel-heading panel-step-head"
 						style="background-color: transparent; ">

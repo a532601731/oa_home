@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.luchao.entity.AffairModule;
 import com.luchao.entity.Department;
 import com.luchao.service.IDepartmentService;
 
@@ -34,7 +35,7 @@ public class AffairModuleController {
 	
 	
 	@PostMapping("doadd")
-	public String doadd(
+	public String doadd(AffairModule affairModule,
 						String affairModuleName,
 						String[] moduleOptionsName,
 						Integer[] moduleOptionsId,
@@ -44,6 +45,8 @@ public class AffairModuleController {
 			){
 		
 		System.out.println("用户进入了公文模板doadd菜单");
+		System.out.println("模板表："+affairModule);
+		System.out.println("-------------------------------");
 		System.out.println("模板名："+affairModuleName);
 		
 		for(int i=0;i<moduleOptionsName.length;i++){
@@ -52,6 +55,11 @@ public class AffairModuleController {
 			System.out.println("------------");
 		}
 		System.out.println("审批人："+Approval);
+		//1:往模板表中增加一条数据
+		
+		
+		
+		
 		return "redirect:/affair_module/show";
 	}
 }
