@@ -5,11 +5,11 @@
 <!-- 对应 dao 中的 接口 -->
 <mapper namespace="com.luchao.dao.ModuleApprovalMapper">
 	<resultMap type="com.luchao.entity.ModuleApproval" id="ModuleApprovalMap">
-		<id property="approvalId" column="affairmodule_id"/>
-		<result property="affairModuleId" column="affairmodule_name"/>
-		<result property="approvalOrder" column="affairmodule_user_id"/>
-		<result property="approvalUserId" column="affairmodule_name"/>
-		<result property="approvalStatus" column="affairmodule_user_id"/>
+		<id property="approvalId" column="approval_id"/>
+		<result property="affairModuleId" column="affairmodule_id"/>
+		<result property="approvalOrder" column="approval_order"/>
+		<result property="approvalUserId" column="approval_user_id"/>
+		<result property="approvalStatus" column="approval_status"/>
 			
 	</resultMap>
 	

@@ -117,7 +117,12 @@ public class AffairModuleController {
 		System.out.println("用户正在编辑模板编号为"+id+"的模板");
 		AffairModule a=affairmoduleservice.getAffairModuleById(id);
 		List<AffairModuleModuleOptions> ls1=affairoptions.getByAffairModuleId(id);
+		List<ModuleApproval> ls2=mas.getById(id);
 		
+		modelmap.addAttribute("departments",departmentservice.getAllDepartment());
+		modelmap.addAttribute("affairModule",a);
+		modelmap.addAttribute("affairOptions",ls1);
+		modelmap.addAttribute("moduleApproval",ls2);
 		return "affair_module/update";
 	}
 	@PostMapping("doupdate/{id}")

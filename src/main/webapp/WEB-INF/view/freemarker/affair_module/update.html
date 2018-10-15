@@ -146,38 +146,41 @@
 							<label for="affairModule_name" class="col-sm-2 control-label">模板名称</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="affairModule_name"
-									placeholder="请输入模板名称" name="affairModuleName">
+									placeholder="请输入模板名称" name="affairModuleName" value="${affairModule.affairModuleName}">
 							</div>
 						</div>
 					</div>
 					<div class="panel-body panel-step-body page2">
-						<div class="form-group">
-							<label class="col-sm-1 control-label">选项名称</label>
-							<div class="col-sm-2">
-								<input type="text" class="form-control" placeholder="请输入选项名称"
-									name="moduleOptionsName">
+						<#list affairOptions as affairOption>
+							<div class="form-group">
+								<label class="col-sm-1 control-label">选项名称</label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" placeholder="请输入选项名称"
+										name="moduleOptionsName" value="${affairOption.moduleOptionsName}">
+								</div>
+								<label class="col-sm-1 control-label">选项类型</label>
+								<div class="col-sm-2">
+									<select class="form-control" name="moduleOptionsId">
+										
+										<option value=1 <#if affairOption.moduleOptionsId=1>selected="selected"</#if> >单行文本框</option>
+										<option value=2 <#if affairOption.moduleOptionsId=2>selected="selected"</#if>>文本域</option>
+										<option value=3 <#if affairOption.moduleOptionsId=3>selected="selected"</#if>>单选按钮</option>
+										<option value=4 <#if affairOption.moduleOptionsId=4>selected="selected"</#if>>多选按钮</option>
+										<option value=5 <#if affairOption.moduleOptionsId=5>selected="selected"</#if>>下拉菜单</option>
+										<option value=6 <#if affairOption.moduleOptionsId=6>selected="selected"</#if>>日期时间</option>
+									</select>
+								</div>
+								<label class="col-sm-1 control-label">数据</label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" placeholder="逗号分隔"
+										name="moduleOptionsData" value="${affairOption.moduleOptionsData">
+								</div>
+								<div class="col-sm-3">
+									<button type="button" class="btn btn-success addoption">添加</button>
+									<button type="button" class="btn btn-danger deleteoption">x</button>
+								</div>
 							</div>
-							<label class="col-sm-1 control-label">选项类型</label>
-							<div class="col-sm-2">
-								<select class="form-control" name="moduleOptionsId">
-									<option value=1>单行文本框</option>
-									<option value=2>文本域</option>
-									<option value=3>单选按钮</option>
-									<option value=4>多选按钮</option>
-									<option value=5>下拉菜单</option>
-									<option value=6>日期时间</option>
-								</select>
-							</div>
-							<label class="col-sm-1 control-label">数据</label>
-							<div class="col-sm-2">
-								<input type="text" class="form-control" placeholder="逗号分隔"
-									name="moduleOptionsData">
-							</div>
-							<div class="col-sm-3">
-								<button type="button" class="btn btn-success addoption">添加</button>
-								<button type="button" class="btn btn-danger deleteoption">x</button>
-							</div>
-						</div>
+						</#list>
 					</div>
 					<div class="panel-body panel-step-body page3">
 						<!-- 1，展示所有部门，2根据部门列出所有员工 3展示审批流程 -->
@@ -223,8 +226,8 @@
 							<!-- 这里的内容由jq自动往里面添加 -->
 						</div>
 
-						<input type="hidden" id="chaindata" name="Approval">
-						<input type="hidden" id="ApprovalId" name="ApprovalId">
+						<input type="text" id="chaindata" name="Approval">
+						<input type="text" id="ApprovalId" name="ApprovalId">
 
 
 
