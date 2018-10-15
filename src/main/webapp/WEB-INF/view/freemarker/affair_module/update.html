@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>BWFUIFramework</title>
+<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${rc.contextPath}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/wow.js"></script>
+<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/global.js"></script>
+<script type="text/javascript">
+
+
+	$(function() {
+		function load() {
+			$(".btn-step-prev1").show();
+			$(".btn-step-next1").show();
+			$(".btn-step-submit").hide();
+			var index = $(".btn-step").index($(".btn-primary"));
+			if (index == 0) {
+				$(".btn-step-prev1").hide();
+			}
+			if (index == $(".btn-step").length - 1) {
+				$(".btn-step-next1").hide();
+				$(".btn-step-submit").show();
+			}
+		}
+		$(".btn-step-prev1").click(function() {
+			$(".btn-step-next1").show()
+			var lastindex = $(".btn-step").index($(".btn-primary"));
+			$(".panel-step-body").eq(lastindex).delay(300).hide();
+			$(".panel-step-body").eq(lastindex - 1).delay(400).show();
+			$(".btn-step").eq(lastindex).removeClass("btn-primary").addClass("btn-default");
+			$(".btn-step").eq(lastindex - 1).removeClass("btn-default").addClass("btn-primary");
+			load();
+		})
+		$(".btn-step-next1").click(function() {
+			$(".btn-step-prev1").show()
+			var lastindex = $(".btn-step").index($(".btn-primary"));
+			var index = $(this).val();
+			$(".panel-step-body").eq(lastindex).delay(300).hide();
+			$(".panel-step-body").eq(lastindex + 1).delay(400).show();
+			$(".btn-step").eq(lastindex).removeClass("btn-primary").addClass("btn-default");
+			$(".btn-step").eq(lastindex + 1).removeClass("btn-default").addClass("btn-primary");
+			load();
+		})
+		$('.btn-step').click(function() {
+			//index值是从0开始，选项1的val值也要从0开始
+			var lastindex = $(".btn-step").index($(".btn-primary"));
+			var index = $(this).val();
+			$(".panel-step-body").eq(lastindex).delay(300).hide();
+			$(".panel-step-body").eq(index).delay(400).show();
+			$(".btn-step").eq(lastindex).removeClass("btn-primary").addClass("btn-default");
+			$(".btn-step").eq(index).removeClass("btn-default").addClass("btn-primary");
+			load();
+
+		})
+		$(".addoption").click(function() {
+			var clone = $(this).parent().parent();
+			$(".page2").append(clone.clone(true));
+		})
+		$(".deleteoption").click(function() {
+			if ($('.deleteoption').length > 1) {
+				$(this).parent().parent().remove();
+			} else {
+				alert("不能再少了，大哥！！")
+			}
+		})
+		$('.btn-user').click(function() {
+			var div = '<div class="col-md-2" style="border: 1px solid red; ">'
+				+ '<img class="remove-user" src="${rc.contextPath}/img/d12.png" style="float: right;height: 24px;width: 24px;cursor:pointer" >'
+				+ '<div style="clear: both;"></div>'
+				+ '<input type="button" class="btn btn-primary" value="' + $(this).val() + '" ApprovalId="'+$(this).attr("ApprovalId") +'" >'
+				+ '<font size="5">→</font></div>'
+			$("#chain").append(div);
+			var val=$(this).val();
+			$("input[name='" + val + "']").attr("disabled", true);
+			var chaindata = $("#chaindata").val();
+			chaindata = chaindata + $(this).val() + ",";
+			$("#chaindata").val(chaindata);
+			
+			var ApprovalId=$("#ApprovalId").val();
+			ApprovalId=ApprovalId+$(this).attr("ApprovalId")+",";
+			$("#ApprovalId").val(ApprovalId);
+			
+		})
+		
+			
+		$('#chain').on('click', '.remove-user', function() {
+				var val = $(this).next().next().val();
+				var ApprovalIdval=$(this).next().next().attr("ApprovalId");
+				
+				$("input[name='" + val + "']").attr("disabled", false);
+				$(this).parent().remove();
+	
+				// 数据部分
+				// 遍历ui部分
+				var chaindata = $("#chaindata").val();			
+				chaindata = chaindata.replace(val + ",", "")
+				$("#chaindata").val(chaindata);
+				
+				
+				
+				var ApprovalId=$("#ApprovalId").val();
+				ApprovalId=ApprovalId.replace(ApprovalIdval+",","")
+				$("#ApprovalId").val(ApprovalId)
+			
+		});
+
+
+	})
+</script>
+</head>
+<body>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<button type="button" class="btn btn-default btn-back btn-sm"
+				onclick="history.back()">返 回</button>
+			&nbsp;&nbsp;面板标题
+		</div>
+		<div class="panel-body">
+
+			<form action="${rc.contextPath}/affair_module/doadd" method="post"
+				role="form" class="form-horizontal">
+				<input name="affairModuleUserId" value=${user.userId} type="hidden">
+				<div class="panel panel-default panel-step">
+					<div class="panel-heading panel-step-head"
+						style="background-color: transparent; ">
+						<div class="panel-step-btn-group">
+							<button type="button" class="btn btn-primary btn-step" value="0">
+								模板名称</button>
+							<button type="button" class="btn btn-default btn-step" value="1">
+								模板设计</button>
+							<button type="button" class="btn btn-default btn-step" value="2">
+								审批流程</button>
+
+						</div>
+					</div>
+					<div class="panel-body panel-step-body page1">
+
+						<div class="form-group">
+							<label for="affairModule_name" class="col-sm-2 control-label">模板名称</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="affairModule_name"
+									placeholder="请输入模板名称" name="affairModuleName">
+							</div>
+						</div>
+					</div>
+					<div class="panel-body panel-step-body page2">
+						<div class="form-group">
+							<label class="col-sm-1 control-label">选项名称</label>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" placeholder="请输入选项名称"
+									name="moduleOptionsName">
+							</div>
+							<label class="col-sm-1 control-label">选项类型</label>
+							<div class="col-sm-2">
+								<select class="form-control" name="moduleOptionsId">
+									<option value=1>单行文本框</option>
+									<option value=2>文本域</option>
+									<option value=3>单选按钮</option>
+									<option value=4>多选按钮</option>
+									<option value=5>下拉菜单</option>
+									<option value=6>日期时间</option>
+								</select>
+							</div>
+							<label class="col-sm-1 control-label">数据</label>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" placeholder="逗号分隔"
+									name="moduleOptionsData">
+							</div>
+							<div class="col-sm-3">
+								<button type="button" class="btn btn-success addoption">添加</button>
+								<button type="button" class="btn btn-danger deleteoption">x</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body panel-step-body page3">
+						<!-- 1，展示所有部门，2根据部门列出所有员工 3展示审批流程 -->
+						<div class="row">
+							<#list departments as department>
+							<div class="col-md-2">${department.departmentName} :</div>
+							<div class="col-md-10">
+								<#list department.users as department2>
+								<div class="btn-group btn-group-sm">
+									<input type="button" class="btn btn-default btn-user"
+										 value="${department2.nickname}" name="${department2.nickname}" approvalId="${department2.userId}">
+
+								</div>
+								</#list>
+							</div>
+							<br>
+							<hr>
+							</#list>
+						</div>
+						<#if user.leader!=null>
+						<div class="row">
+							
+							<div class="col-md-2">直属上级 :</div>
+							<div class="col-md-10">
+								
+								<div class="btn-group btn-group-sm">
+									<input type="button" class="btn btn-default btn-user"
+										 value="${user.leader.nickname}" name="${user.leader.nickname}" approvalId="${user.leader.userId}">
+									
+								</div>
+								
+							</div>
+							<br>
+							<hr>
+							
+						</div>
+						</#if>
+
+
+						<!-- 展示审批流程部分 -->
+
+						<div id="chain" class="row">
+							<!-- 这里的内容由jq自动往里面添加 -->
+						</div>
+
+						<input type="hidden" id="chaindata" name="Approval">
+						<input type="hidden" id="ApprovalId" name="ApprovalId">
+
+
+
+					</div>
+				</div>
+
+
+				<div class="panel-footer panel-tab-footer">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-step-prev1">
+							上一步</button>
+						<button type="button" class="btn btn-default btn-step-next1">
+							下一步</button>
+						<button type="submit" class="btn btn-danger btn-step-submit">
+							提交表单</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+
+
+
+	<div style="height: 80px;"></div>
+</body>
+</html>
+

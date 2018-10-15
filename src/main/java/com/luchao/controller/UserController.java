@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
+import com.luchao.dao.UserMapper;
 import com.luchao.entity.Page;
 import com.luchao.entity.User;
 import com.luchao.service.IUserService;
+import com.luchao.util.md5;
 
 
 
@@ -73,10 +75,38 @@ public class UserController {
 		session.removeAttribute("user");
 		return "redirect:/user/login";
 	}
-
+	//编辑用户操作
+	@GetMapping("update/{id}")
+	public String update(@PathVariable Integer id,ModelMap modelmap){
+		User user=userservice.getUserById(id);
+		List<User> users=userservice.getAllUsers();
+		modelmap.addAttribute("user1",user);
+		modelmap.addAttribute("allusers",users);
+		return "user/update";
+	}
+	@RequestMapping("doUpdate")
+	public String doupdate(User user){
+		System.out.println("需要更新的user信息："+user);
+		if(user.getPassword()!=""&&null!=user.getPassword()){
+			user.setPassword(md5.md5Password(user.getPassword()));
+		}
+		int i=userservice.update(user);
+		if(i==1){
+			return "redirect:/user/show?success=2";
+		}else{
+			return "redirect:/user/show?errors=3";
+		}
+	}
+	
 	@GetMapping("show")
-	public String userShow(ModelMap modelmap, Integer page,String nickname) {
-
+	public String userShow(ModelMap modelmap, Integer page,String nickname,Integer success,Integer errors) {
+		if(success!=null){
+			modelmap.addAttribute("success", success);
+		}
+		if(errors!=null){
+			modelmap.addAttribute("errors", errors);
+		}
+		System.out.println("成功代码："+success+",错误代码:"+errors);
 		logger.info("用户进入员工管理界面");
 
 		if (page == null) {
@@ -164,7 +194,7 @@ public class UserController {
 			User user1=userservice.getUserByUsernameAndPassword(user);
 			if(user1==null){
 				userservice.add(user);
-				return "redirect:/user/show?page=1&addsuccess";
+				return "redirect:/user/show?page=1&success=1";
 			}else{
 				//用户名重复
 				rmm.addFlashAttribute("usernameerror","用户名重复!!");

@@ -14,16 +14,22 @@
 <script type="text/javascript" src="${rc.contextPath}/js/Calendar3.js"></script>
 <script type="text/javascript">
 	$(function() {
-		
-		//单个删除
-		$(".btn-delete").click(function() {
-
-			var id = $(this).prev().val();
-
-			if (confirm("确定删除id为" + id + "的用户？")) {
-				location.href = "${rc.contextPath}/user/delete/" + id
+		if (location.href.indexOf('success') >= 0) {
+			var success=${success}
+			console.log(success)
+			if(success==1){alert("添加用户成功！")}
+			if(success==2){alert("编辑用户成功！")
 			}
-		})
+			
+		}
+		if (location.href.indexOf('errors') >= 0) {
+			var success=${errors}
+			console.log(success)
+			if(errors==3){alert("编辑用户失败！！")}
+			
+			
+		}
+		
 		//批量删除
 		$("#deletesome").click(function() {
 			var checkedNum = $("input[name='id']:checked").length;
@@ -55,7 +61,7 @@
 					}
 				});
 			}
-			
+
 
 		})
 		//增加user操作
@@ -64,40 +70,55 @@
 			location.href = "${rc.contextPath}/user/add"
 
 		})
-		
+
 		//分页操作开始
 		$("#btnFirst").click(function() {
 
-			
+
+
+
+			location.href = "${rc.contextPath}/user/show?page=1"
+
+		})
+
+		$("#btnLast").click(function() {
+
+			location.href = "${rc.contextPath}/user/show?page=" + $("#allpages").val();
+		})
+		$("#btnPrev").click(function() {
+
+			location.href = "${rc.contextPath}/user/show?page=" + (parseInt($("#currentPage").val()) - 1);
+		})
+		$("#btnNext").click(function() {
+
+			location.href = "${rc.contextPath}/user/show?page=" + (parseInt($("#currentPage").val()) + 1);
+		})
+
+		$(".pages").click(function() {
+
+			location.href = "${rc.contextPath}/user/show?page=" + $(this).val();
+		})
+
+		
+		//单个删除
+		$(".btn-delete").click(function() {
+
+			var id = $(this).prev().val();
+
+			if (confirm("确定删除id为" + id + "的用户？")) {
+				location.href = "${rc.contextPath}/user/delete/" + id
+			}
+		})
+		//单个编辑
+		$(".btn-update").click(function(){
+			var id = $(this).next().val();
 
 			
-				location.href = "${rc.contextPath}/user/show?page=1"
+			location.href = "${rc.contextPath}/user/update/" + id
+			
 			
 		})
-		
-		$("#btnLast").click(function(){
-			
-			location.href="${rc.contextPath}/user/show?page="+$("#allpages").val();
-		})
-		$("#btnPrev").click(function(){
-			
-			location.href="${rc.contextPath}/user/show?page="+(parseInt($("#currentPage").val())-1);
-		})
-		$("#btnNext").click(function(){
-			
-			location.href="${rc.contextPath}/user/show?page="+(parseInt($("#currentPage").val())+1);
-		})
-		
-		$(".pages").click(function(){
-		
-			location.href="${rc.contextPath}/user/show?page="+$(this).val();	
-		})
-		
-		if(location.href.indexOf("addsuccess")>=0){
-			alert("添加用户成功！")
-		}
-		
-		
+
 	})
 </script>
 </head>
@@ -167,7 +188,7 @@
 					<thead>
 						<tr>
 							<th class="td-checkbox"><input type="checkbox"
-								class="cbx-all" /></th>
+								class="cbx-all" name="id" /></th>
 							<th>员工编号</th>
 							<th>用户名</th>
 							<th>昵称</th>
@@ -193,7 +214,7 @@
 								height="20px" class="img img-circle" /></td>
 							<td width="120px"><span class="btn-group btn-group-xs">
 									<button type="button" class="btn btn-default">查看</button>
-									<button type="button" class="btn btn-default">编辑</button> <input
+									<button type="button" class="btn btn-default btn-update">编辑</button> <input
 									type="hidden" value="${user.userId}">
 									<button type="button" class="btn btn-danger btn-delete">删除</button>
 							</span></td>
@@ -205,7 +226,7 @@
 					</tfoot>
 				</table>
 			</form>
-			
+
 			<div class="row">
 				<div class="col-lg-8 col-md-7 col-sm-7 col-xs-5">
 					<div class="btn-group btn-group-sm">
@@ -224,23 +245,23 @@
 						</#if>
 						<input type="hidden" value="${pagebean.allpages}" id="allpages">
 						<#list pages as pages1> <#if pages1=pagebean.pageNow>
-						<button type="button" class="btn btn-primary pages" value="${pages1}" id="currentPage">
-							${pages1}</button>
-						</#if>
-						 <#if pages1!=pagebean.pageNow>
-						<button type="button" class="btn btn-default pages" value="${pages1}">
-							${pages1}</button>
-						</#if> 
-						</#list>
+						<button type="button" class="btn btn-primary pages"
+							value="${pages1}" id="currentPage">${pages1}</button>
+						</#if> <#if pages1!=pagebean.pageNow>
+						<button type="button" class="btn btn-default pages"
+							value="${pages1}">${pages1}</button>
+						</#if> </#list>
 
 
 						<#if pagebean.hasLast=0>
-						<button type="button" class="btn btn-darkgreen lastpage" id="btnNext">
+						<button type="button" class="btn btn-darkgreen lastpage"
+							id="btnNext">
 							<span class="hidden-xs hidden-sm"> 下一页 </span> <span
 								class="hidden-lg hidden-md"> &gt;&gt; </span>
 						</button>
 						</#if>
-						<button type="button" class="btn btn-darkgreen lastpage" id="btnLast">
+						<button type="button" class="btn btn-darkgreen lastpage"
+							id="btnLast">
 							<span class="hidden-xs hidden-sm"> 末 页 </span> <span
 								class="hidden-lg hidden-md"> &gt;| </span>
 						</button>
@@ -250,7 +271,7 @@
 				</div>
 
 			</div>
-			
+
 
 
 

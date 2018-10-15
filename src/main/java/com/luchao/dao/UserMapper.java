@@ -17,7 +17,7 @@ int update(User user);
 User getUserByUsernameAndPassword(User user);
 User getMenusAndOperateByUserId(Integer id);
 List<User> getAllUsers();
-User getUserById(Integer id);
+User getUserById1(Integer id);
 User getLeaderUserById(Integer id);
 User getUserWithLeaderAndSubordinate(Integer id);
 List<User> getAllUserWithLeaderAndSubordinate();

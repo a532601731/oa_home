@@ -14,9 +14,74 @@
 <script type="text/javascript" src="${rc.contextPath}/js/Calendar3.js"></script>
 <script type="text/javascript">
 	$(function(){
+		if (location.href.indexOf('success') >= 0) {
+			var success=${success}
+			console.log(success)
+			if(success==1){alert("删除模板成功！")}						
+		}
+		if (location.href.indexOf('errors') >= 0) {
+			var errors=${errors}
+			console.log(errors)									
+		}			
 		$("#addAffairModule").click(function(){
 			location.href = "${rc.contextPath}/affair_module/add";
 		})
+		
+		
+		
+		
+		
+		//单个编辑
+		$(".btn-update").click(function(){
+			var id=$(this).next().val();
+			location.href ="${rc.contextPath}/affair_module/update/"+id;
+		})
+		//批量删除
+		$("#deletesome").click(function() {
+			var checkedNum = $("input[name='id']:checked").length;
+			if (checkedNum == 0) {
+				alert("请至少选择一项!");
+				return false;
+			}
+			if (confirm("确定删除所选项目?")) {
+				var checkedList = new Array();
+				$("input[name='id']:checked").each(function() {
+
+					checkedList.push($(this).val());
+				});
+				$.ajax({
+					type : "POST",
+					<!--批量删除的进入路径，-->
+					url : "${rc.contextPath}/affair_module/delete/some",
+					data : {
+						"deleteIds" : checkedList.toString()
+					},
+					datatype : "html",
+					success : function(data) {
+						$("input[name='id']").prop("checked", false);
+						location.reload();
+						alert("删除成功！")
+					//页面刷新 
+					},
+					error : function(data) {
+						alert("删除失败！未知错误！")
+					}
+				});
+			}
+		})
+		
+		//单个删除
+		$(".btn-delete").click(function() {
+
+			var id = $(this).prev().val();
+
+			if (confirm("确定删除id为" + id + "的模板？")) {
+				location.href = "${rc.contextPath}/affair_module/delete/" + id
+			}
+		})
+		
+		
+		
 	})
 </script>
 </head>
@@ -30,7 +95,10 @@
 			&nbsp;&nbsp; 员工管理
 			<div class="btn-group btn-group-sm pull-right">
 				
-				
+				<button type="button" class="btn btn-default" id="deletesome">
+					<img src="${rc.contextPath}/img/7.png" height="16px" />
+					&nbsp;&nbsp;批量删除
+				</button>
 				<button type="button" class="btn btn-default" id="addAffairModule">
 					<img src="${rc.contextPath}/img/plus.png" height="16px" />
 					&nbsp;&nbsp;添加公文模板
@@ -54,7 +122,7 @@
 					<thead>
 						<tr>
 							<th class="td-checkbox"><input type="checkbox"
-								class="cbx-all" /></th>
+								class="cbx-all" name="id"/></th>
 							<th>公文模板编号</th>
 							<th>公文模版名称</th>
 							<th>操作选项</th>
@@ -62,22 +130,22 @@
 					</thead>
 					<tbody>
 
-						
+						<#list affairmodules as affairmodule>
 						<tr>
 							<td align="center" class="td-checkbox"><input
-								type="checkbox" name="id" value="" /></td>
-							<td>1</td>
-							<td>请假公文模板</td>
+								type="checkbox" name="id" value="${affairmodule.affairModuleId}" /></td>
+							<td>${affairmodule.affairModuleId}</td>
+							<td>${affairmodule.affairModuleName}</td>
 							
 							
 							<td width="120px"><span class="btn-group btn-group-xs">
 									<button type="button" class="btn btn-default">查看</button>
-									<button type="button" class="btn btn-default">编辑</button> <input
-									type="hidden" value="${user.userId}">
+									<button type="button" class="btn btn-default btn-update">编辑</button> <input
+									type="hidden" value="${affairmodule.affairModuleId}">
 									<button type="button" class="btn btn-danger btn-delete">删除</button>
 							</span></td>
 						</tr>
-						
+						</#list>
 					</tbody>
 					<tfoot>
 

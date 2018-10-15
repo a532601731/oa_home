@@ -1,5 +1,7 @@
 package com.luchao.service;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class TestService {
 	@Autowired
 	@Qualifier("userserviceimpl")
 	IUserService userservice;
+	
+	
 	
 	@Autowired
 	IAffairModuleService aff;
@@ -36,12 +40,26 @@ public class TestService {
 //		aff.add(a);
 //		
 //	}
+//	@Test
+//	public void test3(){
+//		String a="1,2,3,";
+//		a=a.substring(0,a.length()-1);
+//		System.out.println(a);
+//		String[] as=a.split(",");
+//		System.out.println(as.length);
+//	}
+//	@Test
+//	public void test4(){
+//		
+//		List<AffairModule> ls= aff.getAllAffairModule();
+//		for(AffairModule a:ls){
+//			System.out.println(a);
+//		}
+//	}
 	@Test
-	public void test3(){
-		String a="1,2,3,";
-		a=a.substring(0,a.length()-1);
-		System.out.println(a);
-		String[] as=a.split(",");
-		System.out.println(as.length);
+	public void test4(){
+		
+		aff.delete(100);
+		
 	}
 }

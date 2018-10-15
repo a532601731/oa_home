@@ -14,5 +14,15 @@
 	<insert id="add" parameterType="com.luchao.entity.AffairModule" useGeneratedKeys="true" keyProperty="affairModuleId">
 		insert into affairmodule values(null,#{affairModuleName},#{affairModuleUserId})
 	</insert>
-	
+	<select id="getAllAffairModule" resultMap="AffairModuleMap">
+		 select * from affairmodule
+	</select>
+	<sql id="check0">set FOREIGN_KEY_CHECKS=0;</sql>
+    <sql id="check1">set FOREIGN_KEY_CHECKS=1;</sql>
+    <!-- 删除 一个 user -->
+    <delete id="delete" parameterType="int">    
+    	<include refid="check0"></include>        	
+		delete from affairmodule where affairmodule_id=#{id};		
+    	<include refid="check1"></include>    	   
+    </delete>
 </mapper>

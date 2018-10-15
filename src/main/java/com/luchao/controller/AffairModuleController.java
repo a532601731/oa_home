@@ -2,10 +2,14 @@ package com.luchao.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -33,8 +37,16 @@ public class AffairModuleController {
 	@Autowired
 	IModuleApprovalService mas;
 	@GetMapping("show")
-	public String show(){
+	public String show(ModelMap modelmap,Integer success,Integer errors){
+		if(success!=null){
+			modelmap.addAttribute("success", success);
+		}
+		if(errors!=null){
+			modelmap.addAttribute("errors", errors);
+		}
 		System.out.println("用户进入了公文模板show菜单");
+		List<AffairModule> ls= affairmoduleservice.getAllAffairModule();
+		modelmap.addAttribute("affairmodules",ls);
 		return "affair_module/show";
 	}
 	@GetMapping("add")
@@ -49,6 +61,7 @@ public class AffairModuleController {
 	
 	@PostMapping("doadd")
 	public String doadd(AffairModule affairModule,
+
 						String affairModuleName,
 						String[] moduleOptionsName,
 						Integer[] moduleOptionsId,
@@ -97,4 +110,35 @@ public class AffairModuleController {
 		}
 		return "redirect:/affair_module/show";
 	}
+	
+	@GetMapping("update")
+	public String update(){
+		
+		return "affair_module/update";
+	}
+	
+	@GetMapping("delete/{id}")
+	public String deleteUserById(@PathVariable("id") Integer id) {
+		System.out.println("用户进行删除模板操作。");
+		System.out.println("用户要删除的模板id为" + id);
+		affairmoduleservice.delete(id);
+		return "redirect:/affair_module/show?success=1";
+	}
+	
+	// 批量删除的方法
+		@RequestMapping("delete/some")
+		public void batchDeletes(HttpServletRequest request, HttpServletResponse response) {
+			System.out.println("用户进行模板批量删除操作");
+			String items = request.getParameter("deleteIds");// System.out.println(items);
+			String[] strs = items.split(",");
+			for (int i = 0; i < strs.length; i++) {
+				
+				int id = Integer.parseInt(strs[i]);
+				System.out.println("用户删除id为"+id+"的模板");
+				affairmoduleservice.delete(id);
+
+			}
+		}
+	
 }
+

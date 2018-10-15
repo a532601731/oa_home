@@ -18,7 +18,7 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public User getUserById(Integer id) {
 		// TODO Auto-generated method stub
-		return usermapper.getUserById(id);
+		return usermapper.getUserById1(id);
 	}
 
 	@Override
