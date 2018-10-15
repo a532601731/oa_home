@@ -73,7 +73,7 @@
 			var div = '<div class="col-md-2" style="border: 1px solid red; ">'
 				+ '<img class="remove-user" src="${rc.contextPath}/img/d12.png" style="float: right;height: 24px;width: 24px;cursor:pointer" >'
 				+ '<div style="clear: both;"></div>'
-				+ '<input type="button" class="btn btn-primary" value="' + $(this).val() + '" >'
+				+ '<input type="button" class="btn btn-primary" value="' + $(this).val() + '" ApprovalId="'+$(this).attr("ApprovalId") +'" >'
 				+ '<font size="5">→</font></div>'
 			$("#chain").append(div);
 			var val=$(this).val();
@@ -81,12 +81,18 @@
 			var chaindata = $("#chaindata").val();
 			chaindata = chaindata + $(this).val() + ",";
 			$("#chaindata").val(chaindata);
+			
+			var ApprovalId=$("#ApprovalId").val();
+			ApprovalId=ApprovalId+$(this).attr("ApprovalId")+",";
+			$("#ApprovalId").val(ApprovalId);
+			
 		})
 		
 			
 		$('#chain').on('click', '.remove-user', function() {
-			var val = $(this).next().next().val()
-	
+				var val = $(this).next().next().val();
+				var ApprovalIdval=$(this).next().next().attr("ApprovalId");
+				
 				$("input[name='" + val + "']").attr("disabled", false);
 				$(this).parent().remove();
 	
@@ -95,6 +101,12 @@
 				var chaindata = $("#chaindata").val();			
 				chaindata = chaindata.replace(val + ",", "")
 				$("#chaindata").val(chaindata);
+				
+				
+				
+				var ApprovalId=$("#ApprovalId").val();
+				ApprovalId=ApprovalId.replace(ApprovalIdval+",","")
+				$("#ApprovalId").val(ApprovalId)
 			
 		});
 
@@ -176,7 +188,7 @@
 								<#list department.users as department2>
 								<div class="btn-group btn-group-sm">
 									<input type="button" class="btn btn-default btn-user"
-										 value="${department2.nickname}" name="${department2.nickname}">
+										 value="${department2.nickname}" name="${department2.nickname}" approvalId="${department2.userId}">
 
 								</div>
 								</#list>
@@ -185,6 +197,7 @@
 							<hr>
 							</#list>
 						</div>
+						<#if user.leader!=null>
 						<div class="row">
 							
 							<div class="col-md-2">直属上级 :</div>
@@ -192,8 +205,8 @@
 								
 								<div class="btn-group btn-group-sm">
 									<input type="button" class="btn btn-default btn-user"
-										 value="${user.leader.nickname}" name="${user.leader.nickname}">
-
+										 value="${user.leader.nickname}" name="${user.leader.nickname}" approvalId="${user.leader.userId}">
+									
 								</div>
 								
 							</div>
@@ -201,7 +214,7 @@
 							<hr>
 							
 						</div>
-
+						</#if>
 
 
 						<!-- 展示审批流程部分 -->
@@ -210,8 +223,8 @@
 							<!-- 这里的内容由jq自动往里面添加 -->
 						</div>
 
-						<input type="hidden" id="chaindata" name="ApprovalId">
-						
+						<input type="hidden" id="chaindata" name="Approval">
+						<input type="hidden" id="ApprovalId" name="ApprovalId">
 
 
 

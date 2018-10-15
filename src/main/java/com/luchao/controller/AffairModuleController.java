@@ -16,6 +16,7 @@ import com.luchao.entity.ModuleApproval;
 import com.luchao.service.IAffairModuleModuleOptionsService;
 import com.luchao.service.IAffairModuleService;
 import com.luchao.service.IDepartmentService;
+import com.luchao.service.IModuleApprovalService;
 
 @Controller
 @RequestMapping("affair_module")
@@ -28,6 +29,9 @@ public class AffairModuleController {
 	
 	@Autowired
 	IAffairModuleModuleOptionsService affairoptions;
+	
+	@Autowired
+	IModuleApprovalService mas;
 	@GetMapping("show")
 	public String show(){
 		System.out.println("用户进入了公文模板show菜单");
@@ -49,7 +53,7 @@ public class AffairModuleController {
 						String[] moduleOptionsName,
 						Integer[] moduleOptionsId,
 						String[] moduleOptionsData,
-						
+						String Approval,
 						String ApprovalId
 			){
 		
@@ -63,7 +67,7 @@ public class AffairModuleController {
 			
 			System.out.println("------------");
 		}
-		System.out.println("审批人id："+ApprovalId);
+		System.out.println("审批人："+Approval);
 		//1:往模板表中增加一条数据
 		affairmoduleservice.add(affairModule);
 		//2:往关系表中增加N条数据
@@ -89,6 +93,7 @@ public class AffairModuleController {
 			moduleapproval.setAffairModuleId(affairModule.getAffairModuleId());
 			moduleapproval.setApprovalOrder(i+1);
 			moduleapproval.setApprovalUserId(Integer.parseInt(ApprovalsId[i]));
+			mas.add(moduleapproval);
 		}
 		return "redirect:/affair_module/show";
 	}
