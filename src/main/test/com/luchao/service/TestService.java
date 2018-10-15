@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.luchao.entity.AffairModule;
 import com.luchao.entity.AffairModuleModuleOptions;
+import com.luchao.entity.Department;
 import com.luchao.entity.ModuleApproval;
 import com.luchao.entity.User;
 
@@ -32,6 +33,8 @@ public class TestService {
 	
 	@Autowired
 	IModuleApprovalService mas;
+	@Autowired
+	IDepartmentService departmentservice;
 //	@Test
 //	public void test1(){
 //		
@@ -74,16 +77,19 @@ public class TestService {
 	@Test
 	public void test6(){
 		
-		List<AffairModuleModuleOptions> a=ammo.getByAffairModuleId(6);
-		for(AffairModuleModuleOptions b:a){
-			System.out.println(b);
+//		List<AffairModuleModuleOptions> a=ammo.getByAffairModuleId(6);
+//		for(AffairModuleModuleOptions b:a){
+//			System.out.println(b);
+//		}
+		for(Department a:departmentservice.getAllDepartmentAndUsers()){
+			System.out.println(a);
 		}
 	}
-	@Test
-	public void test5(){
-		List<ModuleApproval> a=mas.getById(6);
-		for(ModuleApproval b:a){
-			System.out.println(b);
-		}
-	}
+//	@Test
+//	public void test5(){
+//		List<ModuleApproval> a=mas.getById(6);
+//		for(ModuleApproval b:a){
+//			System.out.println(b);
+//		}
+//	}
 }
