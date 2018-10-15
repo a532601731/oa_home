@@ -20,20 +20,28 @@ public class TestService {
 	
 	@Autowired
 	IAffairModuleService aff;
+//	@Test
+//	public void test1(){
+//		
+//		User user=userservice.getFinalUserById(1);
+//		System.out.println(user);
+//				
+//	} 
+//	
+//	@Test
+//	public void test2(){
+//		AffairModule a=new AffairModule();
+//		a.setAffairModuleName("鲁大师2");
+//		a.setAffairModuleUserId(1);
+//		aff.add(a);
+//		
+//	}
 	@Test
-	public void test1(){
-		
-		User user=userservice.getFinalUserById(1);
-		System.out.println(user);
-				
-	} 
-	
-	@Test
-	public void test2(){
-		AffairModule a=new AffairModule();
-		a.setAffairModuleName("鲁大师2");
-		a.setAffairModuleUserId(1);
-		aff.add(a);
-		
+	public void test3(){
+		String a="1,2,3,";
+		a=a.substring(0,a.length()-1);
+		System.out.println(a);
+		String[] as=a.split(",");
+		System.out.println(as.length);
 	}
 }

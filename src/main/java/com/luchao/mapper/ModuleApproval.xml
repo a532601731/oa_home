@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应 dao 中的 接口 -->
+<mapper namespace="com.luchao.dao.ModuleApprovalMapper">
+	<resultMap type="com.luchao.entity.ModuleApproval" id="ModuleApprovalMap">
+		<id property="approvalId" column="affairmodule_id"/>
+		<result property="affairModuleId" column="affairmodule_name"/>
+		<result property="approvalOrder" column="affairmodule_user_id"/>
+		<result property="approvalUserId" column="affairmodule_name"/>
+		<result property="approvalStatus" column="affairmodule_user_id"/>
+			
+	</resultMap>
+	
+	<insert id="add" parameterType="com.luchao.entity.ModuleApproval" useGeneratedKeys="true" keyProperty="approvalId">
+			insert into moduleapproval values(null,#{affairModuleId},#{approvalOrder},#{approvalUserId},0)
+	</insert>
+	
+</mapper>

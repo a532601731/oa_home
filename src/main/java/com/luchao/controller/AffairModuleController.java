@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.luchao.entity.AffairModule;
 import com.luchao.entity.AffairModuleModuleOptions;
 import com.luchao.entity.Department;
+import com.luchao.entity.ModuleApproval;
 import com.luchao.service.IAffairModuleModuleOptionsService;
 import com.luchao.service.IAffairModuleService;
 import com.luchao.service.IDepartmentService;
@@ -48,8 +49,8 @@ public class AffairModuleController {
 						String[] moduleOptionsName,
 						Integer[] moduleOptionsId,
 						String[] moduleOptionsData,
-						String Approval
-			
+						
+						String ApprovalId
 			){
 		
 		System.out.println("用户进入了公文模板doadd菜单");
@@ -62,7 +63,7 @@ public class AffairModuleController {
 			
 			System.out.println("------------");
 		}
-		System.out.println("审批人："+Approval);
+		System.out.println("审批人id："+ApprovalId);
 		//1:往模板表中增加一条数据
 		affairmoduleservice.add(affairModule);
 		//2:往关系表中增加N条数据
@@ -77,8 +78,18 @@ public class AffairModuleController {
 			
 			affairoptions.add(affairoption);
 		}
+		//3:往审批表中添加一条数据
+		ModuleApproval moduleapproval=new ModuleApproval();
 		
+		ApprovalId=ApprovalId.substring(0,ApprovalId.length()-1);
 		
+		String[] ApprovalsId=ApprovalId.split(",");
+		
+		for(int i=0;i<ApprovalsId.length;i++){
+			moduleapproval.setAffairModuleId(affairModule.getAffairModuleId());
+			moduleapproval.setApprovalOrder(i+1);
+			moduleapproval.setApprovalUserId(Integer.parseInt(ApprovalsId[i]));
+		}
 		return "redirect:/affair_module/show";
 	}
 }
