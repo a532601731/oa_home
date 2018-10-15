@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.luchao.entity.AffairModule;
 import com.luchao.entity.Department;
+import com.luchao.service.IAffairModuleService;
 import com.luchao.service.IDepartmentService;
 
 @Controller
@@ -18,7 +19,9 @@ import com.luchao.service.IDepartmentService;
 public class AffairModuleController {
 	@Autowired
 	IDepartmentService departmentservice;
-
+	
+	@Autowired
+	IAffairModuleService affairmoduleservice;
 	@GetMapping("show")
 	public String show(){
 		System.out.println("用户进入了公文模板show菜单");
@@ -56,7 +59,7 @@ public class AffairModuleController {
 		}
 		System.out.println("审批人："+Approval);
 		//1:往模板表中增加一条数据
-		
+		affairmoduleservice.add(affairModule);
 		
 		
 		

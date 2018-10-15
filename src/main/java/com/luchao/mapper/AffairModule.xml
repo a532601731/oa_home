@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应 dao 中的 接口 -->
+<mapper namespace="com.luchao.dao.AffairModuleMapper">
+	<resultMap type="com.luchao.entity.AffairModule" id="AffairModuleMap">
+		<id property="affairModuleId" column="affairmodule_id"/>
+		<result property="affairModuleName" column="affairmodule_name"/>
+		<result property="affairModuleUserId" column="affairmodule_user_id"/>
+			
+	</resultMap>
+	
+	<insert id="add" parameterType="com.luchao.entity.AffairModule" useGeneratedKeys="true" keyProperty="affairModuleId">
+		insert into affairmodule values(null,#{affairModuleName},#{affairModuleUserId})
+	</insert>
+	
+</mapper>

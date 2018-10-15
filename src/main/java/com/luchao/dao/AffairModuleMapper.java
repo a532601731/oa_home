@@ -1,8 +1,7 @@
-package com.luchao.service;
+package com.luchao.dao;
 
 import com.luchao.entity.AffairModule;
 
-public interface IAffairModuleService {
-
+public interface AffairModuleMapper {
 	int add(AffairModule a);
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.luchao.entity.AffairModule;
 import com.luchao.entity.User;
 
 @RunWith(SpringRunner.class)
@@ -17,6 +18,8 @@ public class TestService {
 	@Qualifier("userserviceimpl")
 	IUserService userservice;
 	
+	@Autowired
+	IAffairModuleService aff;
 	@Test
 	public void test1(){
 		
@@ -24,4 +27,13 @@ public class TestService {
 		System.out.println(user);
 				
 	} 
+	
+	@Test
+	public void test2(){
+		AffairModule a=new AffairModule();
+		a.setAffairModuleName("鲁大师2");
+		a.setAffairModuleUserId(1);
+		aff.add(a);
+		
+	}
 }
