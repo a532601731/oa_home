@@ -59,7 +59,7 @@ public class UserController {
 		} else {
 			logger.info("登录成功");
 			// 登录成功，获取用户的菜单栏和权限栏
-			User nbuser = userservice.getMenusAndOperateByUserId(user1.getUserId());
+			User nbuser = userservice.getFinalUserById(user1.getUserId());
 			session.setAttribute("user", nbuser);
 			logger.info("nbuser:{}", nbuser);
 			return "redirect:/index";

@@ -20,7 +20,7 @@ public class TestService {
 	@Test
 	public void test1(){
 		
-		User user=userservice.getFinalUserById(5);
+		User user=userservice.getFinalUserById(1);
 		System.out.println(user);
 				
 	} 

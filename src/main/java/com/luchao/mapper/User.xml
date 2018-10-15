@@ -80,11 +80,11 @@
 	</resultMap>
 	
 	
-	<select id="getUserById1" parameterType="int" resultMap="final">
+	<select id="getUserById1" parameterType="int" resultMap="UserMap">
         select * from `user` where user_id = #{leaderId}
     </select>
     
-    <select id="getUserByLeaderId1" parameterType="int" resultMap="final">
+    <select id="getUserByLeaderId1" parameterType="int" resultMap="UserMap">
         select * from `user` where leader_id = #{userId}
     </select>
     <select id="getFinalUserById" parameterType="int" resultMap="final">

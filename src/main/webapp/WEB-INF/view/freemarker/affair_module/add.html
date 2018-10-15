@@ -76,7 +76,8 @@
 				+ '<input type="button" class="btn btn-primary" value="' + $(this).val() + '" >'
 				+ '<font size="5">→</font></div>'
 			$("#chain").append(div);
-			$(this).attr("disabled", true);
+			var val=$(this).val();
+			$("input[name='" + val + "']").attr("disabled", true);
 			var chaindata = $("#chaindata").val();
 			chaindata = chaindata + $(this).val() + ",";
 			$("#chaindata").val(chaindata);
@@ -196,6 +197,22 @@
 							<hr>
 							</#list>
 						</div>
+						<div class="row">
+							
+							<div class="col-md-2">直属上级 :</div>
+							<div class="col-md-10">
+								
+								<div class="btn-group btn-group-sm">
+									<input type="button" class="btn btn-default btn-user"
+										 value="${user.leader.nickname}" name="${user.leader.nickname}">
+
+								</div>
+								
+							</div>
+							<br>
+							<hr>
+							
+						</div>
 
 
 
@@ -205,7 +222,7 @@
 							<!-- 这里的内容由jq自动往里面添加 -->
 						</div>
 
-						<input type="text" id="chaindata" name="Approval">
+						<input type="hidden" id="chaindata" name="Approval">
 
 
 
