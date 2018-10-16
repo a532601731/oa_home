@@ -1,17 +1,60 @@
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>MyHtml.html</title>
-	
-    <meta name="keywords" content="keyword1,keyword2,keyword3">
-    <meta name="description" content="this is my page">
-    <meta name="content-type" content="text/html; charset=UTF-8">
-    
-    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<head>
+		<meta charset="utf-8" />
+		<title>BWFUIFramework</title>
+		<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+		<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/wow.js" ></script>
+		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
+	</head>
+	<body>
+		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					&nbsp;&nbsp;公文管理
+				</div>
+				<div class="panel-body">
+					<form action="${rc.contextPath}/affair/add" method="get" role="form" class="form-inline">
+					<div class="panel panel-default panel-tab">
+						<div class="panel-heading panel-tab-head" style="background-color: transparent; ">
+							<div class="btn-group col-md-8" data-toggle="buttons">
+								<label type="button" class="btn btn-primary active btn-tab"><input type="radio"/>选项卡标题一</label>
+								<label type="button" class="btn btn-primary btn-tab"><input type="radio"/>选项卡标题二</label>
+								
+							</div>
+							<div class="col-md-4">
+								<input type="submit" class="btn btn-success" value="新增公文">
+								请选择模板：
+								<select class="form-control" name="affairModuleId">
+									<#list affairmodules as am>
+									<option value=${am.affairModuleId}>${am.affairModuleName}</option>
+									</#list>
+								</select>
+							</div>
+						</div>
+						<div class="panel-body panel-tab-body">
+							第一页
+						</div>
+						
+						<div class="panel-body panel-tab-body">
+							第二页
+						</div>
+						
+						<div class="panel-footer panel-tab-footer">
+							<button type="submit" class="btn btn-danger"> 提交表单 </button>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+			
 
-  </head>
-  
-  <body>
-    	公文管理 界面<br>
-  </body>
+		<div style="height: 80px;"></div>
+	</body>
 </html>
+

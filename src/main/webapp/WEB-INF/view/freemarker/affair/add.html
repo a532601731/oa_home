@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>BWFUIFramework</title>
+<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${rc.contextPath}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/wow.js"></script>
+<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/global.js"></script>
+</head>
+<body>
+	
+	
+	<div class="panel panel-default">
+		<button type="button" class="btn btn-default btn-back btn-sm"
+				onclick="history.back()">返 回</button>
+			&nbsp;&nbsp;创建新公文
+		
+		
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<#list modeloptions as mo>
+					<#if mo.moduleOptionsId=1> 
+					
+					<label for="firstname" class="col-sm-2 control-label">名字</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="firstname"
+							placeholder="请输入名字">
+					</div>
+					
+					<#elseif mo.moduleOptionsId=2>
+					    <textarea class="form-control col-sm-10">2</textarea>
+					<#elseif mo.moduleOptionsId=3>
+						<textarea class="form-control col-sm-10">3</textarea>
+					<#elseif mo.moduleOptionsId=4>
+						4
+					<#elseif mo.moduleOptionsId=5>
+						5
+					<#elseif mo.moduleOptionsId=6>
+						6
+					</#if>
+				</#list>
+			</div>
+			<div class="form-group">
+				<label for="lastname" class="col-sm-2 control-label">姓</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="lastname"
+						placeholder="请输入姓">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<div class="checkbox">
+						<label> <input type="checkbox">请记住我
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">登录</button>
+				</div>
+			</div>
+		</form>
+
+
+	</div>
+
+
+	<div style="height: 80px;"></div>
+</body>
+</html>
+
