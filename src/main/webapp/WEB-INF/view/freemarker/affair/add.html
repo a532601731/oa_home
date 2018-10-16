@@ -12,60 +12,110 @@
 <script type="text/javascript" src="${rc.contextPath}/js/wow.js"></script>
 <link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
 <script type="text/javascript" src="${rc.contextPath}/js/global.js"></script>
+<script type="text/javascript">
+	$(function(){
+		 $("#btn-submit").click(function(){
+		 		var html=$("#formAffair").html();
+		 		var affairModuleId=${affairModuleId}+'';
+		 		
+		 		
+		 		
+					$.ajax({
+						type : "POST",
+						<!--批量删除的进入路径，-->
+						url : "${rc.contextPath}/affair/doadd",
+						data : {
+							"html" : html,
+							"affairModuleId":affairModuleId
+						},
+						datatype : "html",
+						success : function(data) {
+							alert("增加成功")
+							location.reload();
+						//页面刷新 
+						},
+						error : function(data) {
+							alert("增加失败！未知错误！")
+						}			
+				})
+		 })
+		})
+</script>
 </head>
 <body>
-	
-	
+
+
 	<div class="panel panel-default">
 		<button type="button" class="btn btn-default btn-back btn-sm"
-				onclick="history.back()">返 回</button>
-			&nbsp;&nbsp;创建新公文
-		
-		
-		<form class="form-horizontal" role="form">
+			onclick="history.back()">返 回</button>
+		&nbsp;&nbsp;创建新公文
+
+
+		<form class="form-horizontal" role="form"
+			action="${rc.contextPath}/affair/doadd" method="post" id="formAffair">
 			<div class="form-group">
-				<#list modeloptions as mo>
-					<#if mo.moduleOptionsId=1> 
-					
-					<label for="firstname" class="col-sm-2 control-label">名字</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="firstname"
-							placeholder="请输入名字">
-					</div>
-					
-					<#elseif mo.moduleOptionsId=2>
-					    <textarea class="form-control col-sm-10">2</textarea>
-					<#elseif mo.moduleOptionsId=3>
-						<textarea class="form-control col-sm-10">3</textarea>
-					<#elseif mo.moduleOptionsId=4>
-						4
-					<#elseif mo.moduleOptionsId=5>
-						5
-					<#elseif mo.moduleOptionsId=6>
-						6
-					</#if>
-				</#list>
-			</div>
-			<div class="form-group">
-				<label for="lastname" class="col-sm-2 control-label">姓</label>
+				<#list modeloptions as mo> <#if mo.moduleOptionsId=1>
+				<!-- 单行文本框 --> <label for="firstname" class="col-sm-2 control-label">名字</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="lastname"
-						placeholder="请输入姓">
+					<input type="text" class="form-control" id="firstname"
+						placeholder="请输入名字">
 				</div>
+				<br>
+				<br>
+				<#elseif mo.moduleOptionsId=2> <!-- 文本域 --> <label for=""
+					class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
+				<div class="col-sm-10">
+					<textarea class="form-control col-sm-10"></textarea>
+				</div>
+				<br>
+				<br>
+				<#elseif mo.moduleOptionsId=3> <!-- 多选框 --> <label for=""
+					class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
+				<div class="col-sm-10">
+					<!-- 遍历选项 -->
+					<#list mo.moduleOptionsData?split("，") as data> <label
+						class="checkbox-inline"> <input type="checkbox" value="">${data}
+					</label> </#list>
+				</div>
+				<br>
+				<br>
+				<#elseif mo.moduleOptionsId=4> <!-- 单选 --> <label for=""
+					class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
+				<div class="col-sm-10">
+					<#list mo.moduleOptionsData?split("，") as data> <label
+						class="radio-inline"> <input type="radio" value="" checked>${data}
+					</label> </#list>
+				</div>
+				<br>
+				<br>
+				<#elseif mo.moduleOptionsId=5> <!-- 下拉菜单 --> <label
+					class="col-md-2 control-label" for="">${mo.moduleOptionsName}</label>
+				<div class="col-md-10">
+					<select class="form-control" name="">
+						<#list mo.moduleOptionsData?split("，") as data>
+						<option>${data}</option>
+						</#list>
+					</select>
+				</div>
+				<br>
+				<br>
+				<#elseif mo.moduleOptionsId=6> <!-- 日期时间 --> <label for=""
+					class="col-md-2 control-label">${mo.moduleOptionsName}</label>
+				<div class="col-md-10">
+					<input type="datetime-local" class="form-control"
+						placeholder="请输入日期">
+				</div>
+				<br>
+				<br></#if> </#list>
 			</div>
+
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<div class="checkbox">
-						<label> <input type="checkbox">请记住我
-						</label>
-					</div>
+					<button type="button" class="btn btn-default" id="btn-submit">确认提交</button>
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default">登录</button>
-				</div>
-			</div>
+
+
 		</form>
 
 
