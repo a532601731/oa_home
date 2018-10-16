@@ -225,13 +225,21 @@
 							<#list departments as department>
 							<div class="col-md-2">${department.departmentName} :</div>
 							<div class="col-md-10">
+							
 								<#list department.users as department2>
-								<div class="btn-group btn-group-sm">
-									<input type="button" class="btn btn-default btn-user"
-										 value="${department2.nickname}" name="${department2.nickname}" approvalId="${department2.userId}">
-
-								</div>
+									
+										<div class="btn-group btn-group-sm">
+											<#if moduleApprovalNames?seq_contains(department2.nickname)>
+											<input type="button" class="btn btn-default btn-user" disabled="disabled"
+												 value="${department2.nickname}" name="${department2.nickname}" approvalId="${department2.userId}">	
+											<#else><input type="button" class="btn btn-default btn-user"
+												 value="${department2.nickname}" name="${department2.nickname}" approvalId="${department2.userId}">	 																					
+											</#if>	
+											
+										</div>
+									
 								</#list>
+									
 							</div>
 							<br>
 							<hr>
@@ -261,6 +269,17 @@
 
 						<div id="chain" class="row">
 							<!-- 这里的内容由jq自动往里面添加 -->
+							<#list moduleApproval as ma>
+								<div class="col-md-2" style="border: 1px solid red; ">
+								<img class="remove-user" src="${rc.contextPath}/img/d12.png" style="float: right;height: 24px;width: 24px;cursor:pointer" >
+								<div style="clear:both;"></div>
+								
+								<input type="button" class="btn btn-primary" value="${ma.user.nickname}" ApprovalId="${ma.approverId}" >
+								<font size="5">→</font>
+								</div>
+								
+							</#list>
+							
 						</div>
 
 						<input type="hidden" id="chaindata" name="Approval">

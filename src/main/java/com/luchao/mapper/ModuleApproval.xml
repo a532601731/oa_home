@@ -12,6 +12,14 @@
 		<result property="approvalStatus" column="approval_status"/>
 			
 	</resultMap>
+	<resultMap type="com.luchao.entity.ModuleApproval" id="nbMap">
+		<id property="approvalId" column="approval_id"/>
+		<result property="affairModuleId" column="affairmodule_id"/>
+		<result property="approvalOrder" column="approval_order"/>
+		<result property="approvalUserId" column="approval_user_id"/>
+		<result property="approvalStatus" column="approval_status"/>
+		<association property="user" javaType="com.luchao.entity.User" resultMap="com.luchao.dao.UserMapper.UserMap"></association>
+	</resultMap>
 	
 	<insert id="add" parameterType="com.luchao.entity.ModuleApproval" useGeneratedKeys="true" keyProperty="approvalId">
 			insert into moduleapproval values(null,#{affairModuleId},#{approvalOrder},#{approvalUserId},0)
@@ -19,5 +27,13 @@
 	<select id="getById" resultMap="ModuleApprovalMap" parameterType="int">
 		
 		select * from moduleapproval where affairmodule_id = #{id}
+	</select>
+	<select id="getAndUserById" parameterType="int" resultMap="nbMap">
+		SELECT *
+		FROM
+		moduleapproval
+		INNER JOIN user ON  moduleapproval.approval_user_id = user.user_id
+		where moduleapproval.affairmodule_id =#{id}
+	
 	</select>
 </mapper>

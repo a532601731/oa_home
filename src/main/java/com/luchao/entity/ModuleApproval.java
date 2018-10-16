@@ -1,5 +1,6 @@
 package com.luchao.entity;
 
+
 public class ModuleApproval {
 private Integer approvalId;
 private Integer affairModuleId;
@@ -18,17 +19,11 @@ public void setApprovalId(Integer approvalId) {
 }
 
 
-@Override
-public String toString() {
-	return "ModuleApproval [approvalId=" + approvalId + ", affairModuleId=" + affairModuleId + ", approvalOrder="
-			+ approvalOrder + ", approvalUserId=" + approvalUserId + ", approvalStatus=" + approvalStatus + "]";
-}
+
 public Integer getApprovalOrder() {
 	return approvalOrder;
 }
-public ModuleApproval() {
-	super();
-}
+
 public void setApprovalOrder(Integer approvalOrder) {
 	this.approvalOrder = approvalOrder;
 }
@@ -41,9 +36,32 @@ public void setApprovalUserId(Integer approvalUserId) {
 public Integer getApprovalStatus() {
 	return approvalStatus;
 }
+public ModuleApproval() {
+	super();
+}
 public void setApprovalStatus(Integer approvalStatus) {
 	this.approvalStatus = approvalStatus;
 }
+
 private Integer approvalUserId;
 private Integer approvalStatus;
+
+
+
+
+@Override
+public String toString() {
+	return "ModuleApproval [approvalId=" + approvalId + ", affairModuleId=" + affairModuleId + ", approvalOrder="
+			+ approvalOrder + ", approvalUserId=" + approvalUserId + ", approvalStatus=" + approvalStatus + ", user="
+			+ user + "]";
+}
+public User getUser() {
+	return user;
+}
+public void setUser(User user) {
+	this.user = user;
+}
+
+private User user;
+
 }

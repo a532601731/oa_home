@@ -104,7 +104,11 @@ public class TestService {
 //		System.out.println(ls);
 		
 		//System.out.println(ips.deleteByRoleId(29));
-		System.out.println(ips.add(29, 13));
+//		System.out.println(ips.add(29, 13));
+		List<ModuleApproval> ls=mas.getAndUserById(7);
+		for(ModuleApproval a:ls){
+			System.out.println(a);
+		}
 	}
 //	@Test
 //	public void test5(){

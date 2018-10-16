@@ -9,4 +9,6 @@ public interface AffairModuleMapper {
 	List<AffairModule> getAllAffairModule();
 	int delete(Integer id);
 	AffairModule getAffairModuleById(Integer id);
+	
+	
 }

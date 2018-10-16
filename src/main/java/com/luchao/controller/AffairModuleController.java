@@ -1,5 +1,6 @@
 package com.luchao.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,16 +115,21 @@ public class AffairModuleController {
 	
 	@GetMapping("update/{id}")
 	public String update(@PathVariable("id") Integer id,ModelMap modelmap){
+
 		System.out.println("用户进入模板编辑界面");
 		System.out.println("用户正在编辑模板编号为"+id+"的模板");
 		AffairModule a=affairmoduleservice.getAffairModuleById(id);
 		List<AffairModuleModuleOptions> ls1=affairoptions.getByAffairModuleId(id);
-		for(AffairModuleModuleOptions b:ls1){
-			System.out.println(b);
+//		for(AffairModuleModuleOptions b:ls1){
+//			System.out.println(b);
+//		}
+		
+		List<ModuleApproval> ls2=mas.getAndUserById(id);
+		List<String> ls3=new ArrayList<String>();
+		for(ModuleApproval b:ls2){
+			ls3.add(b.getUser().getNickname());
 		}
-		
-		List<ModuleApproval> ls2=mas.getById(id);
-		
+		modelmap.addAttribute("moduleApprovalNames",ls3);
 		modelmap.addAttribute("departments",departmentservice.getAllDepartmentAndUsers());
 		modelmap.addAttribute("affairModule",a);
 		if(ls1.size()>0){
@@ -133,8 +139,9 @@ public class AffairModuleController {
 		modelmap.addAttribute("moduleApproval",ls2);
 		return "affair_module/update";
 	}
+	
 	@PostMapping("doupdate/{id}")
-	public String doEdit(@PathVariable("id") Integer id){
+	public String doupdate(@PathVariable("id") Integer id){
 		//实现模板保存
 		return null;
 	}

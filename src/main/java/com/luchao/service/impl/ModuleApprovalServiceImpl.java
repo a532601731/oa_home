@@ -26,4 +26,10 @@ public class ModuleApprovalServiceImpl implements IModuleApprovalService {
 		return mam.getById(id);
 	}
 
+	@Override
+	public List<ModuleApproval> getAndUserById(Integer id) {
+		// TODO Auto-generated method stub
+		return mam.getAndUserById(id);
+	}
+
 }
