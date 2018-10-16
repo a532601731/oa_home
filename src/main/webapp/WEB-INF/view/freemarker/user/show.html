@@ -15,7 +15,7 @@
 <script type="text/javascript">
 	$(function() {
 		if (location.href.indexOf('success') >= 0) {
-			var success=${success}
+			var success=${success}+'';
 			console.log(success)
 			if(success==1){alert("添加用户成功！")}
 			if(success==2){alert("编辑用户成功！")
@@ -23,7 +23,7 @@
 			
 		}
 		if (location.href.indexOf('errors') >= 0) {
-			var success=${errors}
+			var success=${errors}+'';
 			console.log(success)
 			if(errors==3){alert("编辑用户失败！！")}
 			

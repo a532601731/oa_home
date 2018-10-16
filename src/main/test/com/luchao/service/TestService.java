@@ -1,5 +1,6 @@
 package com.luchao.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -13,6 +14,8 @@ import com.luchao.entity.AffairModule;
 import com.luchao.entity.AffairModuleModuleOptions;
 import com.luchao.entity.Department;
 import com.luchao.entity.ModuleApproval;
+import com.luchao.entity.Permission;
+import com.luchao.entity.Role;
 import com.luchao.entity.User;
 
 @RunWith(SpringRunner.class)
@@ -35,6 +38,11 @@ public class TestService {
 	IModuleApprovalService mas;
 	@Autowired
 	IDepartmentService departmentservice;
+	@Autowired
+	IRoleService irs;
+	
+	@Autowired
+	IPermissionService ips;
 //	@Test
 //	public void test1(){
 //		
@@ -81,9 +89,22 @@ public class TestService {
 //		for(AffairModuleModuleOptions b:a){
 //			System.out.println(b);
 //		}
-		for(Department a:departmentservice.getAllDepartmentAndUsers()){
-			System.out.println(a);
-		}
+//		for(Department a:departmentservice.getAllDepartmentAndUsers()){
+//			System.out.println(a);
+//		}
+//		for(Role a:irs.getAllAndPermissions()){
+//			System.out.println(a);
+//		}
+//		List<Permission> lps= ips.getByRoleId(26);
+//		List<Integer> ls=new ArrayList<Integer>();
+//		for(Permission a:lps){
+////			ls.add(a.getPermissionId());
+//			System.out.println(a);
+//		}
+//		System.out.println(ls);
+		
+		//System.out.println(ips.deleteByRoleId(29));
+		System.out.println(ips.add(29, 13));
 	}
 //	@Test
 //	public void test5(){

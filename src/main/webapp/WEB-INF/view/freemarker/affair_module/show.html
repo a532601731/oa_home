@@ -15,12 +15,12 @@
 <script type="text/javascript">
 	$(function(){
 		if (location.href.indexOf('success') >= 0) {
-			var success=${success}
+			var success=${success}+'';
 			console.log(success)
 			if(success==1){alert("删除模板成功！")}						
 		}
 		if (location.href.indexOf('errors') >= 0) {
-			var errors=${errors}
+			var errors=${errors}+'';
 			console.log(errors)									
 		}			
 		$("#addAffairModule").click(function(){

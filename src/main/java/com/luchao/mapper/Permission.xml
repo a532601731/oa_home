@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应 dao 中的 接口 -->
+<mapper namespace="com.luchao.dao.PermissionMapper">
+	<resultMap type="com.luchao.entity.Permission" id="PermissionMap">
+		<id property="permissionId" column="permission_id"/>
+		<result property="permissionName" column="permission_name"/>
+		<result property="permissionType" column="permission_type"/>
+		<result property="pid" column="pid"/>
+	</resultMap>
+	
+	<select id="getAll" resultMap="PermissionMap" >
+		select * from permission
+	
+	</select>
+	<select id="getByRoleId" parameterType="int" resultMap="PermissionMap">
+		SELECT
+		permission.*
+		FROM
+		role
+		INNER JOIN role_permission ON role_permission.role_id = role.role_id
+		INNER JOIN permission ON role_permission.permission_id = permission.permission_id
+		where role.role_id=#{id}
+		order by role.role_id
+		
+	
+	</select>
+	<delete id="deleteByRoleId" parameterType="int">
+		delete from role_permission where role_id =#{id}
+	</delete>
+	<insert id="add">
+		insert into role_permission values( #{roleId} , #{permissionId});
+	</insert>
+	
+</mapper>

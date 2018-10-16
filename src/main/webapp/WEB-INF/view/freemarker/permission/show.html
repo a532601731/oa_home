@@ -1,17 +1,105 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>MyHtml.html</title>
-	
-    <meta name="keywords" content="keyword1,keyword2,keyword3">
-    <meta name="description" content="this is my page">
-    <meta name="content-type" content="text/html; charset=UTF-8">
-    
-    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<head>
+<meta charset="utf-8" />
+<title>BWFUIFramework</title>
+<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${rc.contextPath}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/wow.js"></script>
+<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/global.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-
 
-  </head>
-  
-  <body>
-    	公文管理 界面<br>
-  </body>
+rc.0/js/select2.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+	
+	
+		<#if success??> 
+				if(${success}==1){
+				alert("更改成功！")
+			}
+			</#if>
+	
+		
+		$("#roleselect").select2();
+		
+		$("#roleselect").change(function(){
+			location.href="${rc.contextPath}/permission/show?roleId="+$(this).val();
+		})
+	})
+</script>
+</head>
+<body>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			
+			权限管理
+		</div>
+		<div class="panel-body">
+			<form action="${rc.contextPath}/permission/doUpdate" method="POST" role="form">
+
+
+				
+				
+				<select class="form-control" id="roleselect" name="roleId">
+					<#list roles as role>
+						<#if role.roleId=roleId>
+							<option value="${role.roleId}" selected="selected">${role.roleName}</option>
+						<#else>
+							<option value="${role.roleId}">${role.roleName}</option>
+						</#if>
+					</#list>	
+				</select>
+				<#list permissions as p1>
+					<#if p1.pid=null>
+						<div class="form-control" style="height: 72px">
+								<!-- 一级权限 -->
+								
+									<div class="one">
+										<#if currentpermissionsId?seq_contains(p1.permissionId)>
+											<input type="checkbox" checked="checked" value="${p1.permissionId}" name="permissionId">${p1.permissionName}<br>
+										<#else>
+											<input type="checkbox"  value="${p1.permissionId}" name="permissionId">${p1.permissionName}<br>
+										</#if>
+									</div>
+								
+								
+								<div class="two">
+								<!-- 二级权限 -->
+									<#list permissions as p2>
+										<#if p2.pid=p1.permissionId>
+											<#if currentpermissionsId?seq_contains(p2.permissionId)>
+													<input type="checkbox"  checked="checked" value="${p2.permissionId}" name="permissionId">${p2.permissionName}
+											<#else>	
+													<input type="checkbox" value="${p2.permissionId}" name="permissionId">${p2.permissionName}
+											</#if>
+										</#if>
+									</#list>
+								</div>
+						</div>
+						
+						
+					</#if>
+					
+				</#list>
+
+				<button type="submit" class="btn btn-danger form-control">
+					提交表单</button>
+
+			</form>
+		</div>
+	</div>
+
+
+	<div style="height: 80px;"></div>
+</body>
 </html>
