@@ -8,8 +8,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.luchao.entity.Affair;
+import com.luchao.entity.User;
 import com.luchao.service.IAffairModuleModuleOptionsService;
 import com.luchao.service.IAffairModuleService;
+import com.luchao.service.IAffairService;
 
 @Controller
 @RequestMapping("affair")
@@ -19,11 +22,18 @@ public class AffairController {
 	
 	@Autowired
 	IAffairModuleModuleOptionsService ammos;
+	@Autowired
+	IAffairService ias;
 
 	@GetMapping("show")
-	public String show(ModelMap modelmap){
+	public String show(ModelMap modelmap,Integer success,Integer errors){
 		System.out.println("用户进入了公文管理菜单");
-		
+		if(success!=null){
+			modelmap.addAttribute("success",success);
+		}
+		if(errors!=null){
+			modelmap.addAttribute("errors",errors);
+		}
 		modelmap.addAttribute("affairmodules",ams.getAllAffairModule());
 		return "affair/show";
 	}
@@ -36,12 +46,24 @@ public class AffairController {
 		return "affair/add";
 	}
 	@RequestMapping("doadd")
-	public void doadd(HttpServletRequest req){
+	public String doadd(HttpServletRequest req){
 		System.out.println("用户进行了公文增加保存操作");
-		System.out.println("affairModuleId:"+req.getParameter("affairModuleId"));
-		
-		System.out.println(req.getParameter("html"));
-		System.out.println("user："+req.getSession().getAttribute("user"));
+//		System.out.println("affairModuleId:"+req.getParameter("affairModuleId"));
+//		
+//		System.out.println(req.getParameter("html"));
+//		System.out.println("user："+req.getSession().getAttribute("user"));
+		User user=(User) req.getSession().getAttribute("user");
+		Affair a=new Affair();
+		a.setAffairModuleId(Integer.parseInt(req.getParameter("affairModuleId")));
+		a.setAffairUserId(user.getUserId());
+		a.setAffairData(req.getParameter("html"));
+		a.setAffairStatus(1);
+		if(ias.add(a)>0){
+			
+			return "redirect:/affair/show?success=1";
+		}else{
+			return "redirect:/affair/show?errors=1";
+		}
 		
 	}
 }

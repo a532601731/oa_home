@@ -32,6 +32,18 @@
 		
 		//批量删除
 		$("#deletesome").click(function() {
+			if(location.href.indexOf("success")>0){
+				var success=${success}+'';
+				if(success==1){
+					alert("新增公文成功")
+				}
+			}
+			if(location.href.indexOf("errors")>0){
+				var errors=${errors}+''
+				if(errors==1){
+					alert("新增公文失败")
+				}
+			}
 			var checkedNum = $("input[name='id']:checked").length;
 			if (checkedNum == 0) {
 				alert("请至少选择一项!");
@@ -57,7 +69,7 @@
 					//页面刷新 
 					},
 					error : function(data) {
-						alert("删除失败！未知错误！")
+						alert("新增失败！未知错误！")
 					}
 				});
 			}
