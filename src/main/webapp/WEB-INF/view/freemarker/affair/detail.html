@@ -47,7 +47,17 @@
 						</tr>
 						<tr>
 							<td>公文详情</td>
-							<td>${affair.affairData}</td>
+
+							<td>
+								<form class="form-horizontal" role="form" method="post">
+									${affair.affairData}
+									
+
+
+
+								</form>
+							</td>
+
 						</tr>
 						<tr>
 							<td>申请人</td>
@@ -56,35 +66,31 @@
 						<tr>
 							<td>审批流程</td>
 							<td>
-							<table class="table table-bordered">
-								<tr>
-									<th>审批顺序</th>
-									<th>审批人</th>
-									<th>批言</th>
-									<th>审批结果</th>
-								</tr>
-								<#list affairApproval as aa>
-								<tr>
-									<td>${aa.affairApprovalOrder}</td>
-									<td>${aa.user.nickname}</td>
-									<td>${aa.affairApprovalComment}</td>
-									<td><#if affair.affairStatus=1>
-											待审批
-										<#elseif affair.affairStatus=2>
-											审批通过
-										<#elseif affair.affairStatus=3>
-											已驳回
-										</#if></td>
-								</tr>
-								</#list>
-							</table> 							
+								<table class="table table-bordered">
+									<tr>
+										<th>审批顺序</th>
+										<th>审批人</th>
+										<th>批言</th>
+										<th>审批结果</th>
+									</tr>
+									<#list affairApproval as aa>
+									<tr>
+										<td>${aa.affairApprovalOrder}</td>
+										<td>${aa.user.nickname}</td>
+										<td>${aa.affairApprovalComment}</td>
+										<td><#if affair.affairStatus=1> 待审批 <#elseif
+												affair.affairStatus=2> 审批通过 <#elseif
+												affair.affairStatus=3> 已驳回 </#if></td>
+									</tr>
+									</#list>
+								</table>
 							</td>
 						</tr>
 						<tr>
 							<td>公文状态</td>
 							<td><#if affair.affairStatus=1> 待审批 <#elseif
-									affair.affairStatus=2> 审批通过 <#elseif affair.affairStatus=3>
-								已驳回 </#if></td>
+									affair.affairStatus=2> 审批通过 <#elseif
+									affair.affairStatus=3> 已驳回 </#if></td>
 						</tr>
 
 					</tbody>
