@@ -52,17 +52,10 @@ public class TestService {
 	IAffairApprovalService iaas;
 	@Test
 	public void test1(){
-//		AffairApproval aa=new AffairApproval();
-//		
-//		aa.setAffairApprovalOrder(1);
-//		aa.setAffairApprovalStatus(0);
-//		aa.setAffairApprovalUserId(2);
-//		aa.setAffairId(1);
-//		System.out.println(iaas.add(aa));	
-		
-		Affair a=new Affair();
-		ias.add(a);
-		System.out.println(a.getAffairId());
+		List<Affair> ls=ias.getAllByUserId(1);
+		for(Affair a:ls){
+			System.out.println(a);
+		}
 	} 
 
 }

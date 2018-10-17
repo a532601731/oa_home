@@ -1,60 +1,124 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>BWFUIFramework</title>
-		<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
-		<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js" ></script>
-		<script type="text/javascript" src="${rc.contextPath}/js/bootstrap.min.js" ></script>
-		<script type="text/javascript" src="${rc.contextPath}/js/wow.js" ></script>
-		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
-		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
-	</head>
-	<body>
-		
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					&nbsp;&nbsp;公文管理
-				</div>
-				<div class="panel-body">
-					<form action="${rc.contextPath}/affair/add" method="get" role="form" class="form-inline">
-					<div class="panel panel-default panel-tab">
-						<div class="panel-heading panel-tab-head" style="background-color: transparent; ">
-							<div class="btn-group col-md-8" data-toggle="buttons">
-								<label type="button" class="btn btn-primary active btn-tab"><input type="radio"/>选项卡标题一</label>
-								<label type="button" class="btn btn-primary btn-tab"><input type="radio"/>选项卡标题二</label>
-								
-							</div>
-							<div class="col-md-4">
-								<input type="submit" class="btn btn-success" value="新增公文">
-								请选择模板：
-								<select class="form-control" name="affairModuleId">
-									<#list affairmodules as am>
-									<option value=${am.affairModuleId}>${am.affairModuleName}</option>
-									</#list>
-								</select>
-							</div>
+<head>
+<meta charset="utf-8" />
+<title>BWFUIFramework</title>
+<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${rc.contextPath}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/wow.js"></script>
+<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
+<script type="text/javascript" src="${rc.contextPath}/js/global.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".btn-detail").click(function(){
+			var affairId=$(this).next().val();
+			location.href="${rc.contextPath}/affair/detail/"+affairId;
+		})
+	})
+</script>
+</head>
+<body>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">&nbsp;&nbsp;公文管理</div>
+		<div class="panel-body">
+			<form action="${rc.contextPath}/affair/add" method="get" role="form"
+				class="form-inline">
+				<div class="panel panel-default panel-tab">
+					<div class="panel-heading panel-tab-head"
+						style="background-color: transparent; ">
+						<div class="btn-group col-md-8" data-toggle="buttons">
+							<label type="button" class="btn btn-primary active btn-tab"><input
+								type="radio" />发起的公文</label> <label type="button"
+								class="btn btn-primary btn-tab"><input type="radio" />待审批的公文</label>
+
 						</div>
-						<div class="panel-body panel-tab-body">
-							第一页
-						</div>
-						
-						<div class="panel-body panel-tab-body">
-							第二页
-						</div>
-						
-						<div class="panel-footer panel-tab-footer">
-							<button type="submit" class="btn btn-danger"> 提交表单 </button>
+						<div class="col-md-4">
+							<input type="submit" class="btn btn-success" value="新增公文">
+							请选择模板： <select class="form-control" name="affairModuleId">
+								<#list affairmodules as am>
+								<option value=${am.affairModuleId}>${am.affairModuleName}</option>
+								</#list>
+							</select>
 						</div>
 					</div>
-					</form>
-				</div>
-			</div>
-			
+					<br>
+					<div class="panel-body panel-tab-body">
+						<table
+							class="table table-bordered table-condensed table-hover table-responsive cbx-group"
+							style="margin-top: 20px;">
+							<thead>
+								<tr>
+									<th class="td-checkbox"><input type="checkbox"
+										class="cbx-all" name="id" /></th>
+									<th>公文编号</th>
+									<th>公文类型</th>
+									<th>公文发起人</th>
+									<th>公文状态</th>
+									<th>公文操作</th>
+								</tr>
+							</thead>
+							<tbody>
 
-		<div style="height: 80px;"></div>
-	</body>
+								<#list affairByUserId as a1>
+								<tr>
+									<td align="center" class="td-checkbox"><input
+										type="checkbox" name="id" value="" /></td>
+									<td>${a1.affairId}</td>	
+									<td>${a1.affairModule.affairModuleName}</td>
+									<td>${a1.user.nickname}</td>
+									<td><#if a1.affairStatus=1>
+											待审批
+										<#elseif a1.affairStatus=2>
+											审批通过
+										<#elseif a1.affairStatus=3>
+											已驳回
+										</#if>
+									</td>
+									<td width="120px"><span class="btn-group btn-group-xs">
+											<button type="button" class="btn btn-default btn-detail">查看</button>
+											<input type="hidden" value=${a1.affairId}>
+											<button type="button" class="btn btn-default btn-update">编辑</button>
+											
+											<button type="button" class="btn btn-danger btn-delete">删除</button>
+									</span></td>
+								</tr>
+								</#list>
+							</tbody>
+							<tfoot>
+
+							</tfoot>
+						</table>
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div class="panel-body panel-tab-body">第二页</div>
+
+					<div class="panel-footer panel-tab-footer">
+						<button type="submit" class="btn btn-danger">提交表单</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+	<div style="height: 80px;"></div>
+</body>
 </html>
 

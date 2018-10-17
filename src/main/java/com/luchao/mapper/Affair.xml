@@ -12,8 +12,25 @@
 		<result property="affairStatus" column="affair_status"/>
 			
 	</resultMap>
+	<resultMap type="com.luchao.entity.Affair" id="nbMap">
+		<id property="affairId" column="affair_id"/>
+		<result property="affairModuleId" column="affairmodule_id"/>
+		<result property="affairData" column="affair_data"/>
+		<result property="affairUserId" column="affair_user_id"/>
+		<result property="affairStatus" column="affair_status"/>		
+		<association property="affairModule" javaType="com.luchao.entity.AffairModule" resultMap="com.luchao.dao.AffairModuleMapper.AffairModuleMap"></association>	
+		<association property="user" javaType="com.luchao.entity.User" resultMap="com.luchao.dao.UserMapper.UserMap"></association>		
+	</resultMap>
 	
 	<insert id="add" parameterType="com.luchao.entity.Affair" useGeneratedKeys="true" keyProperty="affairId">
 		insert into affair values( null,#{affairModuleId},#{affairData},#{affairUserId},#{affairStatus} )
 	</insert>
+	<select parameterType="int" resultMap="nbMap" id="getAllByUserId">
+		SELECT *
+		FROM
+		affair
+		INNER JOIN user ON affair.affair_user_id = user.user_id
+		INNER JOIN affairmodule ON  affair.affairmodule_id = affairmodule.affairmodule_id
+		where affair.affair_user_id=#{userId}
+	</select>	
 </mapper>

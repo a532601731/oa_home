@@ -3,11 +3,13 @@ package com.luchao.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.luchao.entity.Affair;
@@ -37,7 +39,7 @@ public class AffairController {
 	
 
 	@GetMapping("show")
-	public String show(ModelMap modelmap,Integer success,Integer errors){
+	public String show(ModelMap modelmap,Integer success,Integer errors,HttpSession session){
 		System.out.println("用户进入了公文管理菜单");
 		if(success!=null){
 			modelmap.addAttribute("success",success);
@@ -45,6 +47,9 @@ public class AffairController {
 		if(errors!=null){
 			modelmap.addAttribute("errors",errors);
 		}
+		User user=(User) session.getAttribute("user");
+		
+		modelmap.addAttribute("affairByUserId",ias.getAllByUserId(user.getUserId()));
 		modelmap.addAttribute("affairmodules",ams.getAllAffairModule());
 		return "affair/show";
 	}
@@ -90,5 +95,12 @@ public class AffairController {
 			return "redirect:/affair/show?errors=1";
 		}
 		
+	}
+	@RequestMapping("detail/{id}")
+	public String detail(@PathVariable Integer id){
+		Affair a=ias.getByAffairId(id);
+		
+		
+		return "affair/detail";
 	}
 }

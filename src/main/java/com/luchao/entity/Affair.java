@@ -7,14 +7,37 @@ public class Affair {
 	private String affairData;
 	private Integer affairUserId;
 	private Integer affairStatus;
-	public Integer getAffairId() {
-		return affairId;
+	
+	private AffairModule affairModule;
+	private User user;
+	
+	public AffairModule getAffairModule() {
+		return affairModule;
 	}
+
+	public void setAffairModule(AffairModule affairModule) {
+		this.affairModule = affairModule;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
 	@Override
 	public String toString() {
 		return "Affair [affairId=" + affairId + ", affairModuleId=" + affairModuleId + ", affairData=" + affairData
-				+ ", affairUserId=" + affairUserId + ", affairStatus=" + affairStatus + "]";
+				+ ", affairUserId=" + affairUserId + ", affairStatus=" + affairStatus + ", affairModule=" + affairModule
+				+ ", user=" + user + "]";
 	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getAffairId() {
+		return affairId;
+	}
+	
 	public void setAffairId(Integer affairId) {
 		this.affairId = affairId;
 	}
