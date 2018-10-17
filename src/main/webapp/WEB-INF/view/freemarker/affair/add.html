@@ -39,6 +39,8 @@
 						}			
 				})
 		 })
+		
+		 
 		})
 </script>
 </head>
@@ -55,35 +57,35 @@
 			action="${rc.contextPath}/affair/doadd" method="post" id="formAffair">
 			<div class="form-group">
 				<#list modeloptions as mo> <#if mo.moduleOptionsId=1>
-				<!-- 单行文本框 --> <label for="firstname" class="col-sm-2 control-label">名字</label>
+				<!-- 单行文本框 --> <label for="firstname" class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="firstname"
-						placeholder="请输入名字">
+					<input type="text" class="form-control yuansu" id="firstname" 
+						placeholder="">
 				</div>
 				<br>
 				<br>
 				<#elseif mo.moduleOptionsId=2> <!-- 文本域 --> <label for=""
 					class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
 				<div class="col-sm-10">
-					<textarea class="form-control col-sm-10"></textarea>
+					<textarea class="form-control col-sm-10 yuansu"></textarea>
 				</div>
 				<br>
 				<br>
 				<#elseif mo.moduleOptionsId=3> <!-- 多选框 --> <label for=""
-					class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
+					class="col-sm-2 control-label yuansu">${mo.moduleOptionsName}</label>
 				<div class="col-sm-10">
 					<!-- 遍历选项 -->
 					<#list mo.moduleOptionsData?split("，") as data> <label
-						class="checkbox-inline"> <input type="checkbox" value="">${data}
+						class="checkbox-inline yuansu"> <input type="checkbox" value="" class="yuansu">${data}
 					</label> </#list>
 				</div>
 				<br>
 				<br>
 				<#elseif mo.moduleOptionsId=4> <!-- 单选 --> <label for=""
-					class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
+					class="col-sm-2 control-label ">${mo.moduleOptionsName}</label>
 				<div class="col-sm-10">
 					<#list mo.moduleOptionsData?split("，") as data> <label
-						class="radio-inline"> <input type="radio" value="" checked>${data}
+						class="radio-inline"> <input type="radio" value="${data}" class="yuansu" >${data}
 					</label> </#list>
 				</div>
 				<br>
@@ -91,7 +93,7 @@
 				<#elseif mo.moduleOptionsId=5> <!-- 下拉菜单 --> <label
 					class="col-md-2 control-label" for="">${mo.moduleOptionsName}</label>
 				<div class="col-md-10">
-					<select class="form-control" name="">
+					<select class="form-control yuansu" name="" >
 						<#list mo.moduleOptionsData?split("，") as data>
 						<option>${data}</option>
 						</#list>
@@ -102,7 +104,7 @@
 				<#elseif mo.moduleOptionsId=6> <!-- 日期时间 --> <label for=""
 					class="col-md-2 control-label">${mo.moduleOptionsName}</label>
 				<div class="col-md-10">
-					<input type="datetime-local" class="form-control"
+					<input type="datetime-local" class="form-control yuansu" 
 						placeholder="请输入日期">
 				</div>
 				<br>

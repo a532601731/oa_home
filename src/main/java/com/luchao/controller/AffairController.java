@@ -1,5 +1,7 @@
 package com.luchao.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.luchao.entity.Affair;
+import com.luchao.entity.AffairApproval;
+import com.luchao.entity.ModuleApproval;
 import com.luchao.entity.User;
+import com.luchao.service.IAffairApprovalService;
 import com.luchao.service.IAffairModuleModuleOptionsService;
 import com.luchao.service.IAffairModuleService;
 import com.luchao.service.IAffairService;
+import com.luchao.service.IModuleApprovalService;
 
 @Controller
 @RequestMapping("affair")
@@ -24,6 +30,11 @@ public class AffairController {
 	IAffairModuleModuleOptionsService ammos;
 	@Autowired
 	IAffairService ias;
+	@Autowired
+	IModuleApprovalService imas;
+	@Autowired
+	IAffairApprovalService iaas;
+	
 
 	@GetMapping("show")
 	public String show(ModelMap modelmap,Integer success,Integer errors){
@@ -47,7 +58,7 @@ public class AffairController {
 	}
 	@RequestMapping("doadd")
 	public String doadd(HttpServletRequest req){
-		System.out.println("用户进行了公文增加保存操作");
+		System.out.println("用户进行了公文增加操作");
 //		System.out.println("affairModuleId:"+req.getParameter("affairModuleId"));
 //		
 //		System.out.println(req.getParameter("html"));
@@ -58,7 +69,21 @@ public class AffairController {
 		a.setAffairUserId(user.getUserId());
 		a.setAffairData(req.getParameter("html"));
 		a.setAffairStatus(1);
-		if(ias.add(a)>0){
+		int addsuccess=ias.add(a);
+		List<ModuleApproval> mas=imas.getAndUserById(a.getAffairModuleId());
+		AffairApproval aa=new AffairApproval();
+		for(int i=0;i<mas.size();i++){
+			
+			aa.setAffairId(a.getAffairId());
+			aa.setAffairApprovalOrder(mas.get(i).getApprovalOrder());
+			aa.setAffairApprovalStatus(0);
+			aa.setAffairApprovalUserId(mas.get(i).getApprovalUserId());
+			if(iaas.add(aa)<=0){
+				return "redirect:/affair/show?errors=1";
+			}
+		}
+		
+		if(addsuccess>0){
 			
 			return "redirect:/affair/show?success=1";
 		}else{

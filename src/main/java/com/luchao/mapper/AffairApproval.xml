@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应 dao 中的 接口 -->
+<mapper namespace="com.luchao.dao.AffairApprovalMapper">
+	<resultMap type="com.luchao.entity.AffairApproval" id="AffairApprovalMap">
+		<id property="affairApprovalId" column="affairapproval_id"/>
+		<result property="affairId" column="affair_id"/>
+		<result property="affairApprovalOrder" column="affairapproval_order"/>
+		<result property="affairApprovalStatus" column="affairapproval_status"/>
+		<result property="affairApprovalComment" column="affairapproval_comment"/>
+		<result property="affairApprovalUserId" column="affairapproval_user_id"/>	
+	</resultMap>
+	<insert id="add" parameterType="com.luchao.entity.AffairApproval" useGeneratedKeys="true" keyProperty="affairApprovalId">
+			insert into affairapproval values(null,#{affairId},#{affairApprovalOrder},#{affairApprovalStatus},#{affairApprovalComment},#{affairApprovalUserId})
+	</insert>
+
+</mapper>
