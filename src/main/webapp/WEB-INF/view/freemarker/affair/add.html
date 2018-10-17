@@ -9,12 +9,15 @@
 <script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript"
 	src="${rc.contextPath}/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="${rc.contextPath}/js/wow.js"></script>
 <link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
 <script type="text/javascript" src="${rc.contextPath}/js/global.js"></script>
+
 <script type="text/javascript">
 	$(function(){
-		 $("#btn-submit").click(function(){
+		
+		/* $("#btn-submit").click(function(){
 		 		var html=$("#formAffair").html();
 		 		var affairModuleId=${affairModuleId}+'';
 		 		
@@ -38,10 +41,79 @@
 							alert("增加失败！未知错误！")
 						}			
 				})
-		 })
+		 })*/
 		
-		 
+		
+		 $("#btn-submit").click(function(){
+		 	//处理表单Input的html
+		 	$("#formAffair").find("input").each(function(i,e){
+		 		//处理单选和多选
+		 		if($(e).attr("type")=="checkbox"||$(e).attr("type")=="radio"){
+			 				if($(e).prop("checked")){
+			 					
+			 					$(e).attr("checked","checked");
+			 					$(e).attr("disabled","disabled");
+			 				}else{
+			 					$(e).attr("disabled","disabled");
+			 					}
+		 		}
+		 		//处理时间框和单行文本框
+		 		else{
+		 			var clone=$(e).clone();
+		 			clone.attr("value",$(e).val());
+		 			
+		 			clone.attr("disabled","disabled");
+		 			
+		 			$(e).after(clone).remove();
+		 		}
+		 		
+		 		
+		 	})
+		 	$("#formAffair").find("textarea").each(function(i,e){
+		 			var clone=$(e).clone();
+		 			clone.html($(e).val());
+		 			
+		 			clone.attr("disabled","disabled");
+		 			
+		 			$(e).after(clone).remove();
+		 	
+		 	})
+		 	$("#formAffair").find("select").each(function(i,e){
+		 			$(e).find("option").each(function(i1,e1){
+		 				if($(e1).prop("selected")){
+		 					$(e1).attr("selected","selected")
+		 				}
+		 					
+		 				
+		 			});
+		 		$(e).attr("disabled","disabled");
+		 	})
+		 	var html=$("#formAffair").html();
+		 	var affairModuleId=${affairModuleId}+'';
+		 		
+		 		
+		 		
+					$.ajax({
+						type : "POST",
+						<!--进入路径，-->
+						url : "${rc.contextPath}/affair/doadd",
+						data : {
+							"html" : html,
+							"affairModuleId":affairModuleId
+						},
+						datatype : "html",
+						success : function(data) {
+							alert("增加成功")
+							location.reload();
+						//页面刷新 
+						},
+						error : function(data) {
+							alert("增加失败！未知错误！")
+						}			
+				})
+		 })
 		})
+	
 </script>
 </head>
 <body>
@@ -59,8 +131,8 @@
 				<#list modeloptions as mo> <#if mo.moduleOptionsId=1>
 				<!-- 单行文本框 --> <label for="firstname" class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control " id="firstname"
-						placeholder="" name="${mo.moduleOptionsId}">
+					<input type="text" class="form-control " placeholder=""
+						name="${mo.moduleOptionsId}" id="d${mo.moduleOptionsId}">
 				</div>
 				<br>
 				<br>
@@ -70,7 +142,7 @@
 					class="col-sm-2 control-label">${mo.moduleOptionsName}</label>
 				<div class="col-sm-10">
 					<textarea class="form-control col-sm-10 "
-						name="${mo.moduleOptionsId}"></textarea>
+						name="${mo.moduleOptionsId}" id="d${mo.moduleOptionsId}"></textarea>
 				</div>
 				<br>
 				<br>
@@ -82,7 +154,8 @@
 					<!-- 遍历选项 -->
 					<#list mo.moduleOptionsData?split("，") as data> <label
 						class="checkbox-inline yuansu"> <input type="checkbox"
-						value="" class="" name="${mo.moduleOptionsId}">${data}
+						value="" class="" name="${mo.moduleOptionsId}"
+						id="d${mo.moduleOptionsId}">${data}
 					</label> </#list>
 				</div>
 				<br>
@@ -122,8 +195,7 @@
 				</div>
 				<br>
 				<br>
-				</#if>
-				</#list>
+				</#if> </#list>
 			</div>
 
 
