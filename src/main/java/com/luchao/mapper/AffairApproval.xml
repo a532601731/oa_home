@@ -12,8 +12,23 @@
 		<result property="affairApprovalComment" column="affairapproval_comment"/>
 		<result property="affairApprovalUserId" column="affairapproval_user_id"/>	
 	</resultMap>
+	<resultMap type="com.luchao.entity.AffairApproval" id="nbMap">
+		<id property="affairApprovalId" column="affairapproval_id"/>
+		<result property="affairId" column="affair_id"/>
+		<result property="affairApprovalOrder" column="affairapproval_order"/>
+		<result property="affairApprovalStatus" column="affairapproval_status"/>
+		<result property="affairApprovalComment" column="affairapproval_comment"/>
+		<result property="affairApprovalUserId" column="affairapproval_user_id"/>	
+		<association property="user" javaType="com.luchao.entity.User" resultMap="com.luchao.dao.UserMapper.UserMap"></association>		
+	</resultMap>
 	<insert id="add" parameterType="com.luchao.entity.AffairApproval" useGeneratedKeys="true" keyProperty="affairApprovalId">
 			insert into affairapproval values(null,#{affairId},#{affairApprovalOrder},#{affairApprovalStatus},#{affairApprovalComment},#{affairApprovalUserId})
 	</insert>
-
+	<select id="getByAffairId" parameterType="int" resultMap="nbMap">
+			SELECT *
+			FROM
+			affairapproval
+			INNER JOIN user  on affairapproval.affairapproval_user_id = user.user_id
+			where affairapproval.affair_id=#{id}
+	</select>
 </mapper>

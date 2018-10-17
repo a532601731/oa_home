@@ -7,21 +7,29 @@ private Integer affairApprovalOrder;
 private Integer affairApprovalStatus;
 private String affairApprovalComment;
 private Integer affairApprovalUserId;
+private User user;
 public Integer getAffairApprovalId() {
 	return affairApprovalId;
 }
+public User getUser() {
+	return user;
+}
+public void setUser(User user) {
+	this.user = user;
+}
 public void setAffairApprovalId(Integer affairApprovalId) {
 	this.affairApprovalId = affairApprovalId;
-}
-public Integer getAffairId() {
-	return affairId;
 }
 @Override
 public String toString() {
 	return "AffairApproval [affairApprovalId=" + affairApprovalId + ", affairId=" + affairId + ", affairApprovalOrder="
 			+ affairApprovalOrder + ", affairApprovalStatus=" + affairApprovalStatus + ", affairApprovalComment="
-			+ affairApprovalComment + ", affairApprovalUserId=" + affairApprovalUserId + "]";
+			+ affairApprovalComment + ", affairApprovalUserId=" + affairApprovalUserId + ", user=" + user + "]";
 }
+public Integer getAffairId() {
+	return affairId;
+}
+
 public AffairApproval() {
 	super();
 }

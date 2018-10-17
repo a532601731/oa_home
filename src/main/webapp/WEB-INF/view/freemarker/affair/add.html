@@ -91,8 +91,8 @@
 				<br>
 				<br>
 				<#elseif mo.moduleOptionsId=5> <!-- 下拉菜单 --> <label
-					class="col-md-2 control-label" for="">${mo.moduleOptionsName}</label>
-				<div class="col-md-10">
+					class="col-md-2 control-label col-sm-2" for="">${mo.moduleOptionsName}</label>
+				<div class="col-md-10 col-sm-10">
 					<select class="form-control yuansu" name="" >
 						<#list mo.moduleOptionsData?split("，") as data>
 						<option>${data}</option>
@@ -102,8 +102,8 @@
 				<br>
 				<br>
 				<#elseif mo.moduleOptionsId=6> <!-- 日期时间 --> <label for=""
-					class="col-md-2 control-label">${mo.moduleOptionsName}</label>
-				<div class="col-md-10">
+					class="col-md-2 control-label col-sm-2">${mo.moduleOptionsName}</label>
+				<div class="col-md-10 col-sm-10">
 					<input type="datetime-local" class="form-control yuansu" 
 						placeholder="请输入日期">
 				</div>
@@ -111,15 +111,13 @@
 				<br></#if> </#list>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" class="btn btn-default" id="btn-submit">确认提交</button>
-				</div>
-			</div>
+			
 
 
 		</form>
-
+		<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default" id="btn-submit">确认提交</button>
+				</div>
 
 	</div>
 

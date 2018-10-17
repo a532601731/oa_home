@@ -97,10 +97,12 @@ public class AffairController {
 		
 	}
 	@RequestMapping("detail/{id}")
-	public String detail(@PathVariable Integer id){
+	public String detail(@PathVariable Integer id,ModelMap modelmap){
 		Affair a=ias.getByAffairId(id);
+		modelmap.addAttribute("affair",a);
+		List<AffairApproval> aa=iaas.getByAffairId(id);
 		
-		
+		modelmap.addAttribute("affairApproval",aa);
 		return "affair/detail";
 	}
 }

@@ -1,5 +1,7 @@
 package com.luchao.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,12 @@ public class AffairApprovalServiceImpl implements IAffairApprovalService{
 	public int add(AffairApproval aa) {
 		// TODO Auto-generated method stub
 		return aam.add(aa);
+	}
+
+	@Override
+	public List<AffairApproval> getByAffairId(Integer id) {
+		// TODO Auto-generated method stub
+		return aam.getByAffairId(id);
 	}
 		
 	

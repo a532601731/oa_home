@@ -52,8 +52,8 @@ public class TestService {
 	IAffairApprovalService iaas;
 	@Test
 	public void test1(){
-		List<Affair> ls=ias.getAllByUserId(1);
-		for(Affair a:ls){
+		List<AffairApproval> aa=iaas.getByAffairId(5);
+		for(AffairApproval a:aa){
 			System.out.println(a);
 		}
 	} 
